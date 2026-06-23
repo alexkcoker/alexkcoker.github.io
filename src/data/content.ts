@@ -14,7 +14,8 @@ export type CardMedia =
   | { type: 'slideshow'; images: { src: string; alt: string }[] };
 
 export interface CardItem {
-  title: string;
+  /** Optional — omit for media-only cards (e.g. a lab photo strip). */
+  title?: string;
   /** Paragraph body. Omit when using `bullets`. */
   body?: string;
   bullets?: string[];
@@ -26,6 +27,8 @@ export interface CardItem {
 export interface Section {
   id: string;
   heading: string;
+  /** Optional lead paragraph shown under the heading, above the cards. */
+  intro?: string;
   cards: CardItem[];
 }
 
@@ -37,34 +40,11 @@ export const hero = {
 
 export const sections: Section[] = [
   {
-    id: 'research',
-    heading: 'Research',
+    id: 'unm-robotics',
+    heading: 'UNM Robotics Research',
+    intro:
+      'Ongoing robotics research at the University of New Mexico, focused on safe autonomous control, motion planning, and hardware–software integration for legged robots. Individual lab projects are highlighted below.',
     cards: [
-      {
-        title: 'Sandia National Laboratories',
-        body: 'Internship conducting research focused on applied engineering and scientific problem-solving in a national laboratory environment. Gained experience working within high-reliability systems, technical documentation, and collaborative research teams.',
-        media: {
-          type: 'slideshow',
-          images: [
-            { src: 'assets/images/sandia1.png', alt: '' },
-            { src: 'assets/images/sandia2.png', alt: '' },
-            { src: 'assets/images/sandia3.png', alt: '' },
-          ],
-        },
-      },
-      {
-        title: 'UNM Robotics Research',
-        body: 'Robotics-focused research at the University of New Mexico, working on system design, experimentation, and iterative development. Emphasis on hardware–software integration, safe autonomous control, and engineering validation.',
-        reverse: true,
-        media: {
-          type: 'slideshow',
-          images: [
-            { src: 'assets/images/unm1.png', alt: '' },
-            { src: 'assets/images/unm2.png', alt: '' },
-            { src: 'assets/images/unm3.png', alt: '' },
-          ],
-        },
-      },
       {
         title: 'MPPI–CBF Integration for Safe Quadruped Navigation',
         body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance — then ported to a real-time C++ controller for hardware deployment.',
@@ -72,6 +52,24 @@ export const sections: Section[] = [
           type: 'image',
           src: 'assets/images/mppi_cbf_compare.png',
           alt: 'Plain MPPI enters the keep-out zone while MPPI-CBF maintains positive clearance around the obstacle.',
+        },
+      },
+    ],
+  },
+  {
+    id: 'sandia',
+    heading: 'Sandia National Laboratories',
+    intro:
+      'Internship conducting applied engineering and scientific research in a national-laboratory environment — working within high-reliability systems, technical documentation, and collaborative research teams.',
+    cards: [
+      {
+        media: {
+          type: 'slideshow',
+          images: [
+            { src: 'assets/images/sandia1.png', alt: '' },
+            { src: 'assets/images/sandia2.png', alt: '' },
+            { src: 'assets/images/sandia3.png', alt: '' },
+          ],
         },
       },
     ],

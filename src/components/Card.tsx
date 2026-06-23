@@ -27,7 +27,9 @@ export default function Card({ item }: { item: CardItem }) {
       )}
 
       <div className={item.reverse ? 'md:order-1' : ''}>
-        <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
+        {item.title && (
+          <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
+        )}
         {item.body && (
           <p className="mt-2 max-w-prose text-text-secondary">{item.body}</p>
         )}
