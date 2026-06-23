@@ -11,23 +11,33 @@ import CardMediaView from './CardMediaView';
  * Text-only cards (no media) keep the same grid, matching the source markup.
  */
 export default function Card({ item }: { item: CardItem }) {
-  const columns = item.reverse
-    ? 'md:grid-cols-[1fr_180px]'
-    : 'md:grid-cols-[180px_1fr]';
+  // Featured cards stack media full-width on top with content below; standard
+  // cards use the original two-column (media + content) grid.
+  const layout = item.featured
+    ? 'flex flex-col gap-6'
+    : `grid grid-cols-1 gap-7 ${
+        item.reverse ? 'md:grid-cols-[1fr_180px]' : 'md:grid-cols-[180px_1fr]'
+      }`;
 
   return (
     <div
-      className={`group grid grid-cols-1 ${columns} gap-7 rounded border border-border bg-surface p-7 transition-[transform,box-shadow,border-color] duration-fast ease hover:-translate-y-1 hover:border-accent hover:shadow-card`}
+      className={`group ${layout} rounded border border-border bg-surface p-7 transition-[transform,box-shadow,border-color] duration-fast ease hover:-translate-y-1 hover:border-accent hover:shadow-card`}
     >
+      {/* Featured: title sits above the media for context. */}
+      {item.featured && item.title && (
+        <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
+      )}
+
       {item.media && (
         <CardMediaView
           media={item.media}
-          className={item.reverse ? 'md:order-2' : ''}
+          featured={item.featured}
+          className={!item.featured && item.reverse ? 'md:order-2' : ''}
         />
       )}
 
-      <div className={item.reverse ? 'md:order-1' : ''}>
-        {item.title && (
+      <div className={!item.featured && item.reverse ? 'md:order-1' : ''}>
+        {!item.featured && item.title && (
           <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
         )}
         {item.body && (

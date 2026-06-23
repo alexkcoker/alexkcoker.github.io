@@ -11,7 +11,13 @@
 export type CardMedia =
   | { type: 'video'; src: string; title: string }
   | { type: 'image'; src: string; alt: string }
-  | { type: 'slideshow'; images: { src: string; alt: string }[] };
+  | { type: 'slideshow'; images: { src: string; alt: string }[] }
+  // Featured project media: a playable MP4 plus an image slideshow.
+  | {
+      type: 'showcase';
+      video?: { src: string; poster?: string };
+      images: { src: string; alt: string }[];
+    };
 
 export interface CardItem {
   /** Optional — omit for media-only cards (e.g. a lab photo strip). */
@@ -22,6 +28,11 @@ export interface CardItem {
   media?: CardMedia;
   /** Mirrors the original `.card-reverse` asymmetric layout. */
   reverse?: boolean;
+  /**
+   * Full-width layout: media spans the card top, content below. Used for
+   * flagship project cards whose media (video + slideshow) needs real estate.
+   */
+  featured?: boolean;
 }
 
 export interface Section {
@@ -48,10 +59,35 @@ export const sections: Section[] = [
       {
         title: 'MPPI–CBF Integration for Safe Quadruped Navigation',
         body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance — then ported to a real-time C++ controller for hardware deployment.',
+        featured: true,
         media: {
-          type: 'image',
-          src: 'assets/images/mppi_cbf_compare.png',
-          alt: 'Plain MPPI enters the keep-out zone while MPPI-CBF maintains positive clearance around the obstacle.',
+          type: 'showcase',
+          video: {
+            src: 'assets/videos/mppi_cbf_AtoB.mp4',
+            poster: 'assets/images/mppi_cbf_single.png',
+          },
+          images: [
+            {
+              src: 'assets/images/mppi_cbf_compare.png',
+              alt: 'Plain MPPI enters the keep-out zone while MPPI-CBF maintains positive clearance around the obstacle.',
+            },
+            {
+              src: 'assets/images/mppi_cbf_single.png',
+              alt: 'MPPI-CBF top-down path around a single obstacle with barrier h(t), speed command, and base-height plots.',
+            },
+            {
+              src: 'assets/images/mppi_cbf_clutter.png',
+              alt: 'MPPI-CBF navigating a cluttered field of obstacles from start to goal.',
+            },
+            {
+              src: 'assets/images/mppi_cbf_maze.png',
+              alt: 'MPPI-CBF path through a maze-like course with enforced keep-out margins.',
+            },
+            {
+              src: 'assets/images/mppi_cbf_gauntlet.png',
+              alt: 'MPPI-CBF traversing a gauntlet of staggered obstacles while maintaining clearance.',
+            },
+          ],
         },
       },
     ],
@@ -60,15 +96,29 @@ export const sections: Section[] = [
     id: 'sandia',
     heading: 'Sandia National Laboratories',
     intro:
-      'Internship conducting applied engineering and scientific research in a national-laboratory environment — working within high-reliability systems, technical documentation, and collaborative research teams.',
+      'Internship investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spans hands-on sample preparation, four-wire (Kelvin) resistance measurement, controlled electrical testing, and data collection within a national-laboratory environment.',
     cards: [
       {
+        featured: true,
         media: {
           type: 'slideshow',
           images: [
-            { src: 'assets/images/sandia1.png', alt: '' },
-            { src: 'assets/images/sandia2.png', alt: '' },
-            { src: 'assets/images/sandia3.png', alt: '' },
+            {
+              src: 'assets/images/sandia_connector.jpg',
+              alt: 'A failed PV connector with a test tracking barcode.',
+            },
+            {
+              src: 'assets/images/sandia_kelvin.jpg',
+              alt: 'PV connector held in Kelvin clips for four-wire resistance measurement.',
+            },
+            {
+              src: 'assets/images/sandia_bench.jpg',
+              alt: 'Test bench with PV connectors mounted for evaluation.',
+            },
+            {
+              src: 'assets/images/sandia_measurement.png',
+              alt: 'Power supply and precision multimeter capturing connector resistance under load.',
+            },
           ],
         },
       },
