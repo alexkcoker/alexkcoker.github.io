@@ -37,6 +37,46 @@ export const hero = {
 
 export const sections: Section[] = [
   {
+    id: 'research',
+    heading: 'Research',
+    cards: [
+      {
+        title: 'Sandia National Laboratories',
+        body: 'Internship conducting research focused on applied engineering and scientific problem-solving in a national laboratory environment. Gained experience working within high-reliability systems, technical documentation, and collaborative research teams.',
+        media: {
+          type: 'slideshow',
+          images: [
+            { src: 'assets/images/sandia1.png', alt: '' },
+            { src: 'assets/images/sandia2.png', alt: '' },
+            { src: 'assets/images/sandia3.png', alt: '' },
+          ],
+        },
+      },
+      {
+        title: 'UNM Robotics Research',
+        body: 'Robotics-focused research at the University of New Mexico, working on system design, experimentation, and iterative development. Emphasis on hardware–software integration, safe autonomous control, and engineering validation.',
+        reverse: true,
+        media: {
+          type: 'slideshow',
+          images: [
+            { src: 'assets/images/unm1.png', alt: '' },
+            { src: 'assets/images/unm2.png', alt: '' },
+            { src: 'assets/images/unm3.png', alt: '' },
+          ],
+        },
+      },
+      {
+        title: 'MPPI–CBF Integration for Safe Quadruped Navigation',
+        body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance — then ported to a real-time C++ controller for hardware deployment.',
+        media: {
+          type: 'image',
+          src: 'assets/images/mppi_cbf_compare.png',
+          alt: 'Plain MPPI enters the keep-out zone while MPPI-CBF maintains positive clearance around the obstacle.',
+        },
+      },
+    ],
+  },
+  {
     id: 'projects',
     heading: 'Projects',
     cards: [
@@ -66,37 +106,6 @@ export const sections: Section[] = [
           type: 'video',
           src: 'https://www.youtube.com/embed/YOUR_VIDEO_ID',
           title: 'Arduino Mousetrap Robot',
-        },
-      },
-    ],
-  },
-  {
-    id: 'research',
-    heading: 'Research',
-    cards: [
-      {
-        title: 'Sandia National Laboratories',
-        body: 'Conducted research focused on applied engineering and scientific problem-solving in a national laboratory environment. Gained experience working within high-reliability systems, technical documentation, and collaborative research teams.',
-        media: {
-          type: 'slideshow',
-          images: [
-            { src: 'assets/images/sandia1.png', alt: '' },
-            { src: 'assets/images/sandia2.png', alt: '' },
-            { src: 'assets/images/sandia3.png', alt: '' },
-          ],
-        },
-      },
-      {
-        title: 'UNM Robotics Research',
-        body: 'Participated in robotics-focused research at the University of New Mexico, working on system design, experimentation, and iterative development. Emphasis on hardware–software integration and engineering validation.',
-        reverse: true,
-        media: {
-          type: 'slideshow',
-          images: [
-            { src: 'assets/images/unm1.png', alt: '' },
-            { src: 'assets/images/unm2.png', alt: '' },
-            { src: 'assets/images/unm3.png', alt: '' },
-          ],
         },
       },
     ],
