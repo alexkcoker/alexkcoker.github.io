@@ -16,6 +16,10 @@ export type CardMedia =
   | {
       type: 'showcase';
       video?: { src: string; poster?: string };
+      videoCaption?: string;
+      imagesCaption?: string;
+      /** Reserved spot (dashed tile) for media not yet provided, e.g. on-robot footage. */
+      placeholder?: string;
       images: { src: string; alt: string }[];
     };
 
@@ -63,14 +67,12 @@ export const sections: Section[] = [
         media: {
           type: 'showcase',
           video: {
-            src: 'assets/videos/mppi_cbf_AtoB.mp4',
-            poster: 'assets/images/mppi_cbf_single.png',
+            src: 'assets/videos/cbfmppi_sidebyside.mp4',
+            poster: 'assets/images/mppi_cbf_compare.png',
           },
+          videoCaption: 'Side-by-side: plain MPPI vs MPPI-CBF (sim)',
+          imagesCaption: 'MPPI-CBF results across obstacle courses',
           images: [
-            {
-              src: 'assets/images/mppi_cbf_compare.png',
-              alt: 'Plain MPPI enters the keep-out zone while MPPI-CBF maintains positive clearance around the obstacle.',
-            },
             {
               src: 'assets/images/mppi_cbf_single.png',
               alt: 'MPPI-CBF top-down path around a single obstacle with barrier h(t), speed command, and base-height plots.',
@@ -86,6 +88,44 @@ export const sections: Section[] = [
             {
               src: 'assets/images/mppi_cbf_gauntlet.png',
               alt: 'MPPI-CBF traversing a gauntlet of staggered obstacles while maintaining clearance.',
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    id: 'cbf',
+    heading: 'CBF Safety Filter',
+    intro:
+      'A Control Barrier Function (CBF) safety filter for the Unitree Go2, taken from prototype to on-robot deployment.',
+    cards: [
+      {
+        title: 'Control Barrier Function Safety Filter on the Unitree Go2',
+        body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking. The work progressed from a closed-form, single-integrator prototype, to a closed-loop demonstration in MuJoCo with the trained policy (barrier h(t) ≥ 0 throughout, base stays upright), to a real-time C++ port wired into the on-robot deployer (Unitree SDK2 + LibTorch on a Jetson Orin). The C++ filter was verified bit-for-bit against the Python reference and run in sim2sim, with deployment on the physical robot underway.',
+        featured: true,
+        media: {
+          type: 'showcase',
+          placeholder: 'On-robot demo — hardware footage coming soon',
+          video: {
+            src: 'assets/videos/cbf_sim_sidebyside.mp4',
+            poster: 'assets/images/cbf_sim_poster.png',
+          },
+          videoCaption:
+            'MuJoCo: CBF off enters the keep-out zone, CBF on stops at the boundary',
+          imagesCaption: 'Prototype → closed-loop → C++ deployer telemetry',
+          images: [
+            {
+              src: 'assets/images/cbf_phase2.png',
+              alt: 'Closed-loop CBF in MuJoCo: top-down path skirting the keep-out, barrier h(t) staying non-negative, velocity command, and base height.',
+            },
+            {
+              src: 'assets/images/cbf_phase1.png',
+              alt: 'Kinematic single-integrator CBF prototype deflecting a point around a circular keep-out zone to reach the goal.',
+            },
+            {
+              src: 'assets/images/cbf_deploy_telemetry.png',
+              alt: 'Telemetry from the C++ on-robot deployer: commanded vs measured base velocities, joint states, and contact forces.',
             },
           ],
         },

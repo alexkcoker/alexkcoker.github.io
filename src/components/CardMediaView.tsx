@@ -37,20 +37,29 @@ export default function CardMediaView({
   if (media.type === 'showcase') {
     return (
       <div className={`card-media ${className}`}>
+        {media.placeholder && (
+          <div className="mb-4 flex aspect-video w-full items-center justify-center rounded-sm border border-dashed border-border bg-black/20 px-6 text-center text-sm text-text-secondary">
+            {media.placeholder}
+          </div>
+        )}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {media.video && (
             <div>
               <VideoPlayer src={media.video.src} poster={media.video.poster} />
-              <p className="mt-1.5 text-sm text-text-secondary">
-                Autonomous A → B navigation (sim)
-              </p>
+              {media.videoCaption && (
+                <p className="mt-1.5 text-sm text-text-secondary">
+                  {media.videoCaption}
+                </p>
+              )}
             </div>
           )}
           <div>
             <Slideshow images={media.images} />
-            <p className="mt-1.5 text-sm text-text-secondary">
-              Results across obstacle courses
-            </p>
+            {media.imagesCaption && (
+              <p className="mt-1.5 text-sm text-text-secondary">
+                {media.imagesCaption}
+              </p>
+            )}
           </div>
         </div>
       </div>
