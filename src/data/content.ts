@@ -62,7 +62,7 @@ export const sections: Section[] = [
     cards: [
       {
         title: 'MPPI–CBF Integration for Safe Quadruped Navigation',
-        body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance — then ported to a real-time C++ controller for hardware deployment.',
+        body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance. This work is currently simulation-only; transferring the approach to hardware is ongoing.',
         featured: true,
         media: {
           type: 'showcase',
@@ -113,7 +113,7 @@ export const sections: Section[] = [
           },
           videoCaption:
             'MuJoCo: CBF off enters the keep-out zone, CBF on stops at the boundary',
-          imagesCaption: 'Prototype → closed-loop → C++ deployer telemetry',
+          imagesCaption: 'Kinematic prototype → closed-loop in MuJoCo',
           images: [
             {
               src: 'assets/images/cbf_phase2.png',
@@ -122,10 +122,6 @@ export const sections: Section[] = [
             {
               src: 'assets/images/cbf_phase1.png',
               alt: 'Kinematic single-integrator CBF prototype deflecting a point around a circular keep-out zone to reach the goal.',
-            },
-            {
-              src: 'assets/images/cbf_deploy_telemetry.png',
-              alt: 'Telemetry from the C++ on-robot deployer: commanded vs measured base velocities, joint states, and contact forces.',
             },
           ],
         },
