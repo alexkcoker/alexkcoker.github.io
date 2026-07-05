@@ -2,6 +2,7 @@ import { asset } from '@/lib/asset';
 import type { CardMedia } from '@/data/content';
 import Slideshow from './Slideshow';
 import VideoPlayer from './VideoPlayer';
+import SyncedVideos from './SyncedVideos';
 
 /** Renders the media column of a card: video embed, image, or slideshow. */
 export default function CardMediaView({
@@ -30,6 +31,56 @@ export default function CardMediaView({
     return (
       <div className={`card-media ${className}`}>
         <Slideshow images={media.images} feature={featured} />
+      </div>
+    );
+  }
+
+  if (media.type === 'segments') {
+    return (
+      <div className={`card-media flex flex-col gap-10 ${className}`}>
+        {media.segments.map((seg) => (
+          <div key={seg.heading}>
+            <h4 className="mb-3 border-l-2 border-accent pl-3 text-base font-semibold text-text-primary">
+              {seg.heading}
+            </h4>
+
+            {seg.synced ? (
+              <SyncedVideos
+                left={seg.synced.left}
+                right={seg.synced.right}
+                caption={seg.synced.caption}
+              />
+            ) : (
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {seg.video && (
+                  <figure>
+                    <VideoPlayer src={seg.video.src} poster={seg.video.poster} />
+                    {seg.video.caption && (
+                      <figcaption className="mt-1.5 text-sm text-text-secondary">
+                        {seg.video.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+                {seg.image && (
+                  <figure>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={asset(seg.image.src)}
+                      alt={seg.image.alt}
+                      className="w-full rounded-sm"
+                    />
+                    {seg.image.caption && (
+                      <figcaption className="mt-1.5 text-sm text-text-secondary">
+                        {seg.image.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     );
   }

@@ -8,6 +8,21 @@
  *   - undefined -> text-only card (no media column)
  */
 
+/**
+ * A labeled block within a `segments` card: a video + image pair, or a pair of
+ * synchronized side-by-side clips (real vs sim).
+ */
+export interface MediaSegment {
+  heading: string;
+  video?: { src: string; poster?: string; caption?: string };
+  image?: { src: string; alt: string; caption?: string };
+  synced?: {
+    left: { label: string; src: string; poster?: string };
+    right: { label: string; src: string; poster?: string };
+    caption?: string;
+  };
+}
+
 export type CardMedia =
   | { type: 'video'; src: string; title: string }
   | { type: 'image'; src: string; alt: string }
@@ -21,7 +36,9 @@ export type CardMedia =
       /** Reserved spot (dashed tile) for media not yet provided, e.g. on-robot footage. */
       placeholder?: string;
       images: { src: string; alt: string }[];
-    };
+    }
+  // Multiple labeled sub-sections within one featured card.
+  | { type: 'segments'; segments: MediaSegment[] };
 
 export interface CardItem {
   /** Optional — omit for media-only cards (e.g. a lab photo strip). */
@@ -102,26 +119,41 @@ export const sections: Section[] = [
     cards: [
       {
         title: 'Control Barrier Function Safety Filter on the Unitree Go2',
-        body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking. The work progressed from a closed-form, single-integrator prototype, to a closed-loop demonstration in MuJoCo with the trained policy (barrier h(t) ≥ 0 throughout, base stays upright), to a real-time C++ port wired into the on-robot deployer (Unitree SDK2 + LibTorch on a Jetson Orin). The C++ filter was verified bit-for-bit against the Python reference and run in sim2sim, with deployment on the physical robot underway.',
+        body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking. The work progressed from a closed-form, single-integrator prototype, to a closed-loop demonstration in MuJoCo, to a real-time C++ port wired into the on-robot deployer (Unitree SDK2 + LibTorch on a Jetson Orin) — verified against the Python reference and demonstrated both in simulation and on the physical Go2, with a live MuJoCo digital twin mirroring the real robot.',
         featured: true,
         media: {
-          type: 'showcase',
-          placeholder: 'On-robot demo — hardware footage coming soon',
-          video: {
-            src: 'assets/videos/cbf_sim_sidebyside.mp4',
-            poster: 'assets/images/cbf_sim_poster.png',
-          },
-          videoCaption:
-            'MuJoCo: CBF off enters the keep-out zone, CBF on stops at the boundary',
-          imagesCaption: 'Kinematic prototype → closed-loop in MuJoCo',
-          images: [
+          type: 'segments',
+          segments: [
             {
-              src: 'assets/images/cbf_phase2.png',
-              alt: 'Closed-loop CBF in MuJoCo: top-down path skirting the keep-out, barrier h(t) staying non-negative, velocity command, and base height.',
+              heading: 'In Simulation',
+              video: {
+                src: 'assets/videos/cbf_sim_sidebyside.mp4',
+                poster: 'assets/images/cbf_sim_poster.png',
+                caption:
+                  'MuJoCo: CBF off enters the keep-out zone, CBF on stops at the boundary',
+              },
+              image: {
+                src: 'assets/images/cbf_phase2.png',
+                alt: 'Closed-loop CBF in MuJoCo: top-down path skirting the keep-out, barrier h(t) staying non-negative, velocity command, and base height.',
+                caption:
+                  'Top-down path (CBF on), barrier h(t) ≥ 0, and stability plots',
+              },
             },
             {
-              src: 'assets/images/cbf_phase1.png',
-              alt: 'Kinematic single-integrator CBF prototype deflecting a point around a circular keep-out zone to reach the goal.',
+              heading: 'On the Real Robot & Digital Twin',
+              synced: {
+                left: {
+                  label: 'Real Go2',
+                  src: 'assets/videos/cbf_real.mp4',
+                  poster: 'assets/images/cbf_real_poster.jpg',
+                },
+                right: {
+                  label: 'Simulation',
+                  src: 'assets/videos/cbf_sim_success.mp4',
+                  poster: 'assets/images/cbf_sim_success_poster.jpg',
+                },
+                caption: 'Press play — real and simulation run side by side.',
+              },
             },
           ],
         },
