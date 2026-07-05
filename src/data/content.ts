@@ -14,6 +14,8 @@
  */
 export interface MediaSegment {
   heading: string;
+  /** Optional paragraph shown under the heading, above the media. */
+  body?: string;
   video?: { src: string; poster?: string; caption?: string };
   image?: { src: string; alt: string; caption?: string };
   synced?: {
@@ -119,13 +121,14 @@ export const sections: Section[] = [
     cards: [
       {
         title: 'Control Barrier Function Safety Filter on the Unitree Go2',
-        body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking. The work progressed from a closed-form, single-integrator prototype, to a closed-loop demonstration in MuJoCo, to a real-time C++ port wired into the on-robot deployer (Unitree SDK2 + LibTorch on a Jetson Orin) — verified against the Python reference and demonstrated both in simulation and on the physical Go2, with a live MuJoCo digital twin mirroring the real robot.',
+        body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking.',
         featured: true,
         media: {
           type: 'segments',
           segments: [
             {
               heading: 'In Simulation',
+              body: 'Prototyped the filter as a closed-form, single-integrator CBF, then closed the loop in MuJoCo with the trained locomotion policy. With the filter active the robot skirts the keep-out zone — the barrier h(t) stays non-negative and the base remains upright — whereas with it disabled the policy walks straight in.',
               video: {
                 src: 'assets/videos/cbf_sim_sidebyside.mp4',
                 poster: 'assets/images/cbf_sim_poster.png',
@@ -141,6 +144,7 @@ export const sections: Section[] = [
             },
             {
               heading: 'On the Real Robot & Digital Twin',
+              body: 'Ported the closed-form filter to a real-time C++ safety filter wired into the on-robot deployer (Unitree SDK2 + LibTorch on a Jetson Orin) and verified it against the Python reference. Running on the physical Go2, a live MuJoCo digital twin mirrors the robot from its onboard state, so the real run and its simulated counterpart can be played back side by side.',
               synced: {
                 left: {
                   label: 'Real Go2',

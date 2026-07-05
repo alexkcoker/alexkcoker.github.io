@@ -40,9 +40,15 @@ export default function CardMediaView({
       <div className={`card-media flex flex-col gap-10 ${className}`}>
         {media.segments.map((seg) => (
           <div key={seg.heading}>
-            <h4 className="mb-3 border-l-2 border-accent pl-3 text-base font-semibold text-text-primary">
+            <h4 className="border-l-2 border-accent pl-3 text-base font-semibold text-text-primary">
               {seg.heading}
             </h4>
+            {seg.body && (
+              <p className="mb-3 mt-2 max-w-prose text-text-secondary">
+                {seg.body}
+              </p>
+            )}
+            {!seg.body && <div className="mb-3" />}
 
             {seg.synced ? (
               <SyncedVideos

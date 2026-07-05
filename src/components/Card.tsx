@@ -23,34 +23,43 @@ export default function Card({ item }: { item: CardItem }) {
     <div
       className={`group ${layout} rounded border border-border bg-surface p-7 transition-[transform,box-shadow,border-color] duration-fast ease hover:-translate-y-1 hover:border-accent hover:shadow-card`}
     >
-      {/* Featured: title sits above the media for context. */}
-      {item.featured && item.title && (
-        <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
+      {item.featured ? (
+        /* Featured: title + overview on top, then the media (which may hold its
+           own labeled sub-sections). */
+        <>
+          {item.title && (
+            <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
+          )}
+          {item.body && (
+            <p className="-mt-2 max-w-prose text-text-secondary">{item.body}</p>
+          )}
+          {item.media && <CardMediaView media={item.media} featured />}
+        </>
+      ) : (
+        <>
+          {item.media && (
+            <CardMediaView
+              media={item.media}
+              className={item.reverse ? 'md:order-2' : ''}
+            />
+          )}
+          <div className={item.reverse ? 'md:order-1' : ''}>
+            {item.title && (
+              <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
+            )}
+            {item.body && (
+              <p className="mt-2 max-w-prose text-text-secondary">{item.body}</p>
+            )}
+            {item.bullets && (
+              <ul className="mt-2 max-w-prose list-disc pl-[18px] text-text-secondary">
+                {item.bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </>
       )}
-
-      {item.media && (
-        <CardMediaView
-          media={item.media}
-          featured={item.featured}
-          className={!item.featured && item.reverse ? 'md:order-2' : ''}
-        />
-      )}
-
-      <div className={!item.featured && item.reverse ? 'md:order-1' : ''}>
-        {!item.featured && item.title && (
-          <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
-        )}
-        {item.body && (
-          <p className="mt-2 max-w-prose text-text-secondary">{item.body}</p>
-        )}
-        {item.bullets && (
-          <ul className="mt-2 max-w-prose list-disc pl-[18px] text-text-secondary">
-            {item.bullets.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
-        )}
-      </div>
     </div>
   );
 }
