@@ -197,40 +197,6 @@ export const sections: Section[] = [
     ],
   },
   {
-    id: 'projects',
-    heading: 'Projects',
-    cards: [
-      {
-        title: 'Automated YouTube Channel',
-        body: 'Designed and deployed an automated content pipeline that generates, edits, and publishes YouTube videos with minimal human intervention. Focused on workflow automation, scalability, and performance optimization.',
-        media: {
-          type: 'video',
-          src: 'https://www.youtube.com/embed/YOUR_VIDEO_ID',
-          title: 'Automated YouTube Channel Demo',
-        },
-      },
-      {
-        title: 'Automated T-Shirt Business',
-        body: 'Built an automated e-commerce system integrating design generation, order processing, and fulfillment. Emphasis on automation logic, cost efficiency, and scalable operations.',
-        reverse: true,
-        media: {
-          type: 'video',
-          src: 'https://www.youtube.com/embed/YOUR_VIDEO_ID',
-          title: 'Automated T-Shirt Business Demo',
-        },
-      },
-      {
-        title: 'Arduino Mousetrap Robot',
-        body: 'Designed and programmed an Arduino-based robotic system incorporating sensors, actuators, and control logic. Focused on rapid prototyping, embedded programming, and mechanical integration.',
-        media: {
-          type: 'video',
-          src: 'https://www.youtube.com/embed/YOUR_VIDEO_ID',
-          title: 'Arduino Mousetrap Robot',
-        },
-      },
-    ],
-  },
-  {
     id: 'awards',
     heading: 'Awards & Accomplishments',
     cards: [
@@ -282,16 +248,6 @@ export const sections: Section[] = [
           type: 'image',
           src: 'assets/images/gearmasters.webp',
           alt: 'GearMasters Volunteering',
-        },
-      },
-      {
-        title: 'Carnival of Chemistry',
-        body: 'Participated in public science outreach by demonstrating chemistry concepts to a general audience, emphasizing accessibility and engagement.',
-        reverse: true,
-        media: {
-          type: 'image',
-          src: 'assets/images/carnival_chemistry.png',
-          alt: 'Carnival of Chemistry',
         },
       },
     ],
