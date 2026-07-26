@@ -33,6 +33,16 @@ export default function Card({ item }: { item: CardItem }) {
           {item.body && (
             <p className="-mt-2 max-w-prose text-text-secondary">{item.body}</p>
           )}
+          {item.repoUrl && (
+            <a
+              href={item.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link -mt-2 w-fit text-sm font-medium"
+            >
+              View source on GitHub
+            </a>
+          )}
           {item.media && <CardMediaView media={item.media} featured />}
         </>
       ) : (

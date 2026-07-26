@@ -56,6 +56,8 @@ export interface CardItem {
    * flagship project cards whose media (video + slideshow) needs real estate.
    */
   featured?: boolean;
+  /** Optional link to the project's public source repo. */
+  repoUrl?: string;
 }
 
 export interface Section {
@@ -158,6 +160,44 @@ export const sections: Section[] = [
                 },
                 caption: 'Press play — real and simulation run side by side.',
               },
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    id: 'rl-drone',
+    heading: 'Autonomous Drone Search-and-Sample',
+    intro:
+      'A personal reinforcement-learning project: training a simulated quadrotor to search unknown terrain for scientific targets under real mission constraints.',
+    cards: [
+      {
+        title: 'Autonomous Drone Search-and-Sample RL Controller',
+        body: 'Trained a PPO policy (Stable-Baselines3, on gym-pybullet-drones) to fly a simulated quadrotor across an unknown planetary-analog patch of terrain, searching for candidate biosignature sites with a continuous "metal detector" style sensor and navigating to collect them under a finite battery and time budget — while learning to recognize and abandon decoy sites that read as promising but are dead ends. Benchmarked against classical lawnmower-sweep, gradient-follower, and random-walk baselines: the trained policy detects more targets per episode than every baseline, and a hybrid controller (RL search, handing off to lawnmower-style homing on detection) collects more of what it finds.',
+        featured: true,
+        repoUrl: 'https://github.com/pseudower1/rl-drone',
+        media: {
+          type: 'showcase',
+          video: {
+            src: 'assets/videos/rl_drone_hybrid.mp4',
+            poster: 'assets/images/rl_drone_poster.jpg',
+          },
+          videoCaption:
+            'Hybrid policy (RL search + lawnmower-style homing) searching and collecting a biosignature candidate',
+          imagesCaption: 'Evaluation results vs. classical and random baselines',
+          images: [
+            {
+              src: 'assets/images/rl_drone_targets_per_episode.png',
+              alt: 'Bar chart comparing mean targets detected and collected per episode across the RL-trained, lawnmower, hybrid, random-walk, and gradient-follower policies.',
+            },
+            {
+              src: 'assets/images/rl_drone_training_curve.png',
+              alt: 'PPO training curve showing mean evaluation reward climbing past the random-walk and gradient-follower baselines over training.',
+            },
+            {
+              src: 'assets/images/rl_drone_search_efficiency.png',
+              alt: 'Bar chart comparing real-detection search efficiency between the RL policy pre- and post-handoff and the lawnmower sweep.',
             },
           ],
         },
