@@ -267,14 +267,6 @@ export const sections: Section[] = [
           alt: 'Design II Final Project — PUNKS Mousetrap Car',
         },
       },
-      {
-        title: 'Wrestling Accomplishments',
-        bullets: [
-          'Multiple years of competitive wrestling experience',
-          'Demonstrated discipline, resilience, and time management',
-          'Balanced intensive training with rigorous academic workload',
-        ],
-      },
     ],
   },
   {
