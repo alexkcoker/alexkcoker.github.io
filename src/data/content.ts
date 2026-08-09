@@ -269,6 +269,27 @@ export const sections: Section[] = [
           alt: 'Design II Final Project — PUNKS Mousetrap Car',
         },
       },
+      {
+        title: 'Sandia Labs Intern Award',
+        body: 'Received Sandia National Laboratories’ Intern Thunderbird Award (Courageous) from the Student Intern Programs, recognizing initiative and excellence shown during the internship.',
+        media: {
+          type: 'slideshow',
+          images: [
+            {
+              src: 'assets/images/sandia_thunderbird_group.jpg',
+              alt: 'Alex Coker holding an Intern Thunderbird Award: Courageous certificate alongside fellow Sandia National Laboratories interns.',
+            },
+            {
+              src: 'assets/images/sandia_thunderbird_coin_front.jpg',
+              alt: 'Intern Thunderbird Award challenge coin, reading Connected, Courageous, Purpose Driven.',
+            },
+            {
+              src: 'assets/images/sandia_thunderbird_coin_back.jpg',
+              alt: 'Sandia National Laboratories challenge coin, Exceptional Service in the National Interest, established 1949.',
+            },
+          ],
+        },
+      },
     ],
   },
   {
