@@ -71,7 +71,7 @@ export interface Section {
 export const hero = {
   name: 'Alex Coker',
   tagline:
-    'Physics student and robotics-focused engineer working at the intersection of automation, embedded systems, and applied research.',
+    'Robotics student at UNM working with dynamic platforms, path planning algorithms, and embedded control systems.',
 };
 
 export const sections: Section[] = [
