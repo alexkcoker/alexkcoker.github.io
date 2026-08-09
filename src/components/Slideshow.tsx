@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { asset } from '@/lib/asset';
+import Lightbox from './Lightbox';
 
 /**
  * Image carousel with prev/next controls, matching the original `[data-slideshow]`
@@ -19,6 +20,7 @@ export default function Slideshow({
   feature?: boolean;
 }) {
   const [index, setIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const count = images.length;
 
   const go = (delta: number) => setIndex((i) => (i + delta + count) % count);
@@ -29,8 +31,8 @@ export default function Slideshow({
 
   const imgClass = (active: boolean) =>
     feature
-      ? `${active ? 'block' : 'hidden'} mx-auto max-h-[460px] w-auto max-w-full rounded-sm`
-      : `${active ? 'block' : 'hidden'} w-full rounded-sm`;
+      ? `${active ? 'block' : 'hidden'} mx-auto max-h-[460px] w-auto max-w-full cursor-zoom-in rounded-sm`
+      : `${active ? 'block' : 'hidden'} w-full cursor-zoom-in rounded-sm`;
 
   return (
     <div className={containerClass}>
@@ -40,6 +42,7 @@ export default function Slideshow({
           key={img.src}
           src={asset(img.src)}
           alt={img.alt}
+          onClick={() => setLightboxOpen(true)}
           className={imgClass(i === index)}
         />
       ))}
@@ -65,6 +68,16 @@ export default function Slideshow({
         <span className="absolute bottom-2 right-2 rounded bg-[rgba(15,17,21,0.7)] px-2 py-0.5 text-xs text-white">
           {index + 1} / {count}
         </span>
+      )}
+
+      {lightboxOpen && (
+        <Lightbox
+          src={asset(images[index].src)}
+          alt={images[index].alt}
+          onClose={() => setLightboxOpen(false)}
+          onPrev={count > 1 ? () => go(-1) : undefined}
+          onNext={count > 1 ? () => go(1) : undefined}
+        />
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import type { CardMedia } from '@/data/content';
 import Slideshow from './Slideshow';
 import VideoPlayer from './VideoPlayer';
 import SyncedVideos from './SyncedVideos';
+import LightboxImage from './LightboxImage';
 
 /** Renders the media column of a card: video embed, image, or slideshow. */
 export default function CardMediaView({
@@ -125,8 +126,7 @@ export default function CardMediaView({
 
   return (
     <div className={`card-media group-hover:[&_img]:scale-[1.04] ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <LightboxImage
         src={asset(media.src)}
         alt={media.alt}
         className="w-full rounded-sm transition-transform duration-medium ease"
