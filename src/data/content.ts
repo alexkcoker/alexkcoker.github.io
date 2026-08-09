@@ -280,12 +280,8 @@ export const sections: Section[] = [
               alt: 'Alex Coker holding an Intern Thunderbird Award: Courageous certificate alongside fellow Sandia National Laboratories interns.',
             },
             {
-              src: 'assets/images/sandia_thunderbird_coin_front.jpg',
-              alt: 'Intern Thunderbird Award challenge coin, reading Connected, Courageous, Purpose Driven.',
-            },
-            {
-              src: 'assets/images/sandia_thunderbird_coin_back.jpg',
-              alt: 'Sandia National Laboratories challenge coin, Exceptional Service in the National Interest, established 1949.',
+              src: 'assets/images/sandia_thunderbird_cert_coins.jpg',
+              alt: 'Close-up of the Intern Thunderbird Award: Courageous certificate, above both sides of the award challenge coin.',
             },
           ],
         },
