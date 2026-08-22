@@ -239,6 +239,39 @@ export const sections: Section[] = [
     ],
   },
   {
+    id: 'other',
+    heading: 'Other',
+    intro:
+      'Additional projects that don’t fit neatly into the categories above.',
+    cards: [
+      {
+        title: 'Slew Maneuver & Pointing Budget — Target-Tracking CubeSat ADCS',
+        body: 'A self-contained simulation of a reaction-wheel-stabilized 6U CubeSat tracking targets during overhead passes, built to test whether representative small-sat ADCS hardware can hold a 0.1° pointing requirement while slewing. Across three ground-target passes the controller holds the requirement with roughly 2.5x margin. An extension pass then stress-tests the design further — swapping the fixed ground target for a second, fast-moving satellite in a 96.4 km, 6.95 km/s crossing encounter — and finds the one scenario where the hardware’s margin actually runs out: a real reaction-wheel momentum saturation event that briefly exceeds the pointing requirement.',
+        featured: true,
+        media: {
+          type: 'showcase',
+          video: {
+            src: 'assets/videos/satellite_intersat_encounter.mp4',
+            poster: 'assets/images/satellite_intersat_poster.jpg',
+          },
+          videoCaption:
+            'Inter-satellite tracking: the ADCS momentarily exceeds the 0.1° pointing requirement during a 6.95 km/s crossing encounter — the one scenario where the design’s margin runs out.',
+          imagesCaption: 'Pointing-error and robustness analysis for the same encounter',
+          images: [
+            {
+              src: 'assets/images/satellite_pointing_error_vs_estimate.png',
+              alt: 'True vs. estimated pointing error during the inter-satellite encounter, plotted against the 0.1-degree pointing requirement: an initial acquisition swing, a settle, and two later spikes above the requirement near closest approach.',
+            },
+            {
+              src: 'assets/images/satellite_robustness_vs_inertia.png',
+              alt: 'Controller phase margin and bandwidth versus assumed spacecraft inertia perturbed plus-or-minus 10% and 20%, showing stability margin eroding under mass-property uncertainty.',
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
     id: 'awards',
     heading: 'Awards & Accomplishments',
     cards: [
