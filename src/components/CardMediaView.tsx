@@ -28,6 +28,17 @@ export default function CardMediaView({
     );
   }
 
+  if (media.type === 'single-video') {
+    return (
+      <div className={`card-media ${className}`}>
+        <VideoPlayer src={media.video.src} poster={media.video.poster} />
+        {media.caption && (
+          <p className="mt-1.5 text-sm text-text-secondary">{media.caption}</p>
+        )}
+      </div>
+    );
+  }
+
   if (media.type === 'slideshow') {
     return (
       <div className={`card-media ${className}`}>
@@ -60,7 +71,7 @@ export default function CardMediaView({
             ) : (
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {seg.video && (
-                  <figure>
+                  <figure className={!seg.image ? 'md:col-span-2' : undefined}>
                     <VideoPlayer src={seg.video.src} poster={seg.video.poster} />
                     {seg.video.caption && (
                       <figcaption className="mt-1.5 text-sm text-text-secondary">
@@ -70,7 +81,7 @@ export default function CardMediaView({
                   </figure>
                 )}
                 {seg.image && (
-                  <figure>
+                  <figure className={!seg.video ? 'md:col-span-2' : undefined}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={asset(seg.image.src)}

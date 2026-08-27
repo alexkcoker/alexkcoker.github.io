@@ -29,6 +29,8 @@ export type CardMedia =
   | { type: 'video'; src: string; title: string }
   | { type: 'image'; src: string; alt: string }
   | { type: 'slideshow'; images: { src: string; alt: string }[] }
+  // A single self-hosted MP4 demo, full width, with an optional caption.
+  | { type: 'single-video'; video: { src: string; poster?: string }; caption?: string }
   // Featured project media: a playable MP4 plus an image slideshow.
   | {
       type: 'showcase';
@@ -163,6 +165,15 @@ export const sections: Section[] = [
                 caption: 'Press play — real and simulation run side by side.',
               },
             },
+            {
+              heading: 'Update: Adapted to LiDAR',
+              body: 'The real-robot deployment above detected the keep-out zone using the Go2’s onboard camera. This was later replicated on the same safety-filter pipeline but with perception swapped from camera to the robot’s LiDAR — adapting the zone-detection front end to work off point-cloud data while keeping the same CBF filter logic downstream.',
+              video: {
+                src: 'assets/videos/cbf_lidar_real.mp4',
+                poster: 'assets/images/cbf_lidar_real_poster.jpg',
+                caption: 'CBF safety filter on the real Go2, driven by LiDAR-based keep-out zone detection.',
+              },
+            },
           ],
         },
       },
@@ -267,6 +278,18 @@ export const sections: Section[] = [
               alt: 'Controller phase margin and bandwidth versus assumed spacecraft inertia perturbed plus-or-minus 10% and 20%, showing stability margin eroding under mass-property uncertainty.',
             },
           ],
+        },
+      },
+      {
+        title: 'Custom Robotic Arm — Learned From Scratch',
+        body: 'An old desktop robotic arm with no surviving vendor SDK, starter code, or instruction manual. Its control scheme, joint mapping, and command interface all had to be learned from scratch by testing and probing the hardware directly. Wired it to a custom driver/controller board and built a control pipeline from nothing to get it moving reliably through a sequence of manipulation motions.',
+        media: {
+          type: 'single-video',
+          video: {
+            src: 'assets/videos/robot_arm_demo.mp4',
+            poster: 'assets/images/robot_arm_demo_poster.jpg',
+          },
+          caption: 'The arm running its from-scratch control pipeline.',
         },
       },
     ],
