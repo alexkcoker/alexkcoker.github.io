@@ -13,11 +13,18 @@ import CardMediaView from './CardMediaView';
 export default function Card({ item }: { item: CardItem }) {
   // Featured cards stack media full-width on top with content below; standard
   // cards use the original two-column (media + content) grid.
+  // Tailwind's scanner needs each arbitrary-value class spelled out literally
+  // (not composed via interpolation) to generate it — hence the explicit branches.
+  const mediaColsClass = item.wideMedia
+    ? item.reverse
+      ? 'md:grid-cols-[1fr_360px]'
+      : 'md:grid-cols-[360px_1fr]'
+    : item.reverse
+      ? 'md:grid-cols-[1fr_180px]'
+      : 'md:grid-cols-[180px_1fr]';
   const layout = item.featured
     ? 'flex flex-col gap-6'
-    : `grid grid-cols-1 gap-7 ${
-        item.reverse ? 'md:grid-cols-[1fr_180px]' : 'md:grid-cols-[180px_1fr]'
-      }`;
+    : `grid grid-cols-1 gap-7 ${mediaColsClass}`;
 
   return (
     <div

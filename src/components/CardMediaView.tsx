@@ -71,7 +71,7 @@ export default function CardMediaView({
             ) : (
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {seg.video && (
-                  <figure className={!seg.image ? 'md:col-span-2' : undefined}>
+                  <figure>
                     <VideoPlayer src={seg.video.src} poster={seg.video.poster} />
                     {seg.video.caption && (
                       <figcaption className="mt-1.5 text-sm text-text-secondary">
@@ -81,7 +81,7 @@ export default function CardMediaView({
                   </figure>
                 )}
                 {seg.image && (
-                  <figure className={!seg.video ? 'md:col-span-2' : undefined}>
+                  <figure>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={asset(seg.image.src)}
