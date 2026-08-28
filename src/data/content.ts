@@ -223,7 +223,7 @@ export const sections: Section[] = [
     id: 'sandia',
     heading: 'Sandia National Laboratories',
     intro:
-      'Internship investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spans hands-on sample preparation, four-wire (Kelvin) resistance measurement, controlled electrical testing, and data collection within a national-laboratory environment.',
+      'Internship at Sandia National Laboratories investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spanned hands-on sample preparation, four-wire (Kelvin) resistance measurement, and controlled electrical testing across thousands of connector samples, along with data collection and analysis in a national-laboratory environment. Presented results at DOE quarterly program reviews and to 100+ industry experts at the PVQAT solar reliability conference. Recipient of the Sandia Thunderbird Award.',
     cards: [
       {
         featured: true,
@@ -318,7 +318,7 @@ export const sections: Section[] = [
         },
       },
       {
-        title: 'Sandia Labs Intern Award',
+        title: 'Sandia Thunderbird Intern Award',
         body: 'Received Sandia National Laboratories’ Intern Thunderbird Award (Courageous) from the Student Intern Programs, recognizing initiative and excellence shown during the internship.',
         media: {
           type: 'slideshow',
