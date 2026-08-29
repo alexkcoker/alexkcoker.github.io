@@ -47,7 +47,7 @@ export default function Card({ item }: { item: CardItem }) {
               rel="noopener noreferrer"
               className="link -mt-2 w-fit text-sm font-medium"
             >
-              View source on GitHub
+              {item.repoLabel ?? 'View source on GitHub'}
             </a>
           )}
           {item.media && <CardMediaView media={item.media} featured />}

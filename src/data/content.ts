@@ -60,6 +60,8 @@ export interface CardItem {
   featured?: boolean;
   /** Optional link to the project's public source repo. */
   repoUrl?: string;
+  /** Link text for repoUrl. Defaults to "View source on GitHub". */
+  repoLabel?: string;
   /** Doubles the media column width (360px instead of 180px) on a standard (non-featured) card. */
   wideMedia?: boolean;
 }
@@ -247,6 +249,28 @@ export const sections: Section[] = [
               alt: 'Power supply and precision multimeter capturing connector resistance under load.',
             },
           ],
+        },
+      },
+    ],
+  },
+  {
+    id: 'ongoing',
+    heading: 'Ongoing Work',
+    intro: 'Active projects still taking shape.',
+    cards: [
+      {
+        title: 'Porting Agile But Safe to the Unitree Go2',
+        body: 'Working to recreate Agile But Safe (ABS) — a framework that pairs a high-speed agile locomotion policy with a learned reach-avoid safety value network and a recovery policy, letting a legged robot navigate cluttered environments at speed without colliding with obstacles. The original codebase targets the Unitree Go1 and has no existing Go2 port, so this project is building one from scratch. Current progress: training the base position-tracking locomotion policy on the Go2’s model in simulation over rough, obstacle-scattered terrain — the foundation the agile and safety policies still need to be trained on top of.',
+        featured: true,
+        repoUrl: 'https://agile-but-safe.github.io/',
+        repoLabel: 'View original ABS project',
+        media: {
+          type: 'single-video',
+          video: {
+            src: 'assets/videos/go2_pos_rough.mp4',
+            poster: 'assets/images/go2_pos_rough_poster.jpg',
+          },
+          caption: 'Early, rough-terrain training of the Go2 locomotion policy — still a work in progress.',
         },
       },
     ],
