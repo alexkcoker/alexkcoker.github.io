@@ -297,10 +297,12 @@ export const sections: Section[] = [
         repoUrl: 'https://agile-but-safe.github.io/',
         repoLabel: 'View original ABS project',
         meta: {
-          role: 'Independent project',
+          role: 'Undergraduate Research Assistant, Learning and Control Lab (advisor: Prof. Leilei Cui)',
           status: 'In progress',
           stack: ['Python'],
         },
+        contribution:
+          'Building the Go2 port from scratch: training the base locomotion policy in simulation, the foundation the agile and safety policies still need to be trained on top of.',
         media: {
           type: 'single-video',
           video: {

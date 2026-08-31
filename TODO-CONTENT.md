@@ -57,16 +57,6 @@ elsewhere. Add one and the site will pick it up automatically.
       in the source doc if you want it back to one page, then redo the
       conversion (or ask Claude to).
 
-## Judgment call from Phase 2 — please confirm
-
-- [ ] The Agile-But-Safe → Go2 port is labeled `meta.role: 'Independent
-      project'` (not lab-affiliated) because your CV doesn't mention it
-      under the Learning and Control Lab bullets. The site-revamp brief
-      assumed it was "UNM lab work." If it's actually being done under the
-      lab/with your advisor's awareness, tell me and I'll change the role
-      (and probably add a contribution line, since that would make it
-      lab-based per the brief's own rule for when those apply).
-
 ## Custom domain (Phase 3.6 — not started)
 
 - [ ] Decide on a custom domain. The current URL
