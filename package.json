@@ -5,6 +5,7 @@
   "description": "Personal portfolio of Alex Coker — physics student and robotics-focused engineer.",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/write-last-updated.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

@@ -10,6 +10,14 @@
  *     `/<repo>`, so set BASE_PATH=/portfolio at build time.
  *
  * Override with the BASE_PATH env var (see the GitHub Actions workflow / README).
+ *
+ * NEXT_PUBLIC_LAST_UPDATED (the footer's "Last updated" date) is NOT set
+ * here — see scripts/write-last-updated.mjs, run as an npm `prebuild` step.
+ * A next.config.js `env` entry only reliably reaches Server Components
+ * under Turbopack when the var also exists in the real process env before
+ * the build starts; computing it here and only declaring it via `env` was
+ * silently dropped in testing, so it's written to `.env.local` instead,
+ * which Next's built-in env loading picks up for both server and client code.
  */
 const basePath = process.env.BASE_PATH || '';
 
