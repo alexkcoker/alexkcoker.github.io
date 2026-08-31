@@ -64,6 +64,23 @@ export interface CardItem {
   repoLabel?: string;
   /** Doubles the media column width (360px instead of 180px) on a standard (non-featured) card. */
   wideMedia?: boolean;
+  /**
+   * Date or date range for this project (e.g. "Oct. 2025 – Present"). Omitted
+   * (rather than guessed) when the exact date isn't known yet — see
+   * TODO-CONTENT.md for the list of projects still missing one.
+   */
+  dateRange?: string;
+  /** At-a-glance project metadata, rendered as real structure (not a middle-dot string). */
+  meta?: {
+    role?: string;
+    /** Free text, but "Deployed on hardware" / "Simulation only" / "In progress" get a status dot. */
+    status?: string;
+    stack?: string[];
+  };
+  /** One-line "My contribution:" statement — only for collaborative/lab-based work. */
+  contribution?: string;
+  /** Talks/presentations pulled out as their own labelled entries (e.g. for the Sandia entry). */
+  talks?: string[];
 }
 
 export interface Section {
@@ -80,59 +97,110 @@ export const hero = {
     'Robotics student at UNM working with dynamic platforms, path planning algorithms, and embedded control systems.',
 };
 
-export const sections: Section[] = [
+// Facts below are drawn from Alex's CV (the version supplied 2026-08-30,
+// confirmed as authoritative over the older PDF previously in the repo).
+export const about = {
+  headshot: 'assets/images/headshot.jpg',
+  bio: 'B.S. in Mechanical Engineering at the University of New Mexico (expected Spring 2027). Undergraduate researcher in the Learning and Control Lab under Prof. Leilei Cui, working on safety-critical control for legged robots — combining control barrier functions, MPPI, and Hamilton-Jacobi reachability with learned locomotion policies on a Unitree Go2 quadruped, from simulation through hardware deployment.',
+};
+
+// Replaces the old "Philosophy" section per the site-revamp brief: a
+// research-direction statement placed near the top, adjacent to the About
+// block, instead of a generic engineering-philosophy paragraph at the bottom.
+export const researchStatement = {
+  heading: 'Research Direction',
+  body: 'My work centers on layering formal safety guarantees onto learned locomotion policies for legged robots — using control barrier functions and reachability-based methods to keep high-performance, learned controllers provably safe, carried from simulation through to real hardware on a Unitree Go2 quadruped.',
+  // TODO(alex): review this paragraph and make it yours.
+  // TODO(alex): add one sentence on what you want to pursue in a PhD.
+};
+
+export const contact = {
+  emailUser: 'acoker',
+  emailDomain: 'unm.edu',
+  github: 'https://github.com/pseudower1',
+  linkedin: 'https://linkedin.com/in/alexkcoker',
+  // TODO(alex): add an ORCID iD here once you have one.
+  cvPath: 'assets/cv/alex-coker-cv.pdf',
+};
+
+// Groups and wording match the CV's own "Technical Skills" section verbatim
+// (not the site-revamp brief's guessed list, which named "Isaac Lab" and
+// "ROS 2" — the CV says Isaac Gym, and doesn't list ROS 2 at all).
+export const skills: { category: string; items: string[] }[] = [
+  { category: 'Programming', items: ['Python', 'C++'] },
   {
-    id: 'unm-robotics',
-    heading: 'UNM Robotics Research',
-    intro:
-      'Ongoing robotics research at the University of New Mexico, focused on safe autonomous control, motion planning, and hardware–software integration for legged robots. Individual lab projects are highlighted below.',
-    cards: [
-      {
-        title: 'MPPI–CBF Integration for Safe Quadruped Navigation',
-        body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance. This work is currently simulation-only; transferring the approach to hardware is ongoing.',
-        featured: true,
-        repoUrl: 'https://github.com/pseudower1/go2-mppi-cbf',
-        media: {
-          type: 'showcase',
-          video: {
-            src: 'assets/videos/cbfmppi_sidebyside.mp4',
-            poster: 'assets/images/mppi_cbf_compare.png',
-          },
-          videoCaption: 'Side-by-side: plain MPPI vs MPPI-CBF (sim)',
-          imagesCaption: 'MPPI-CBF results across obstacle courses',
-          images: [
-            {
-              src: 'assets/images/mppi_cbf_single.png',
-              alt: 'MPPI-CBF top-down path around a single obstacle with barrier h(t), speed command, and base-height plots.',
-            },
-            {
-              src: 'assets/images/mppi_cbf_clutter.png',
-              alt: 'MPPI-CBF navigating a cluttered field of obstacles from start to goal.',
-            },
-            {
-              src: 'assets/images/mppi_cbf_maze.png',
-              alt: 'MPPI-CBF path through a maze-like course with enforced keep-out margins.',
-            },
-            {
-              src: 'assets/images/mppi_cbf_gauntlet.png',
-              alt: 'MPPI-CBF traversing a gauntlet of staggered obstacles while maintaining clearance.',
-            },
-          ],
-        },
-      },
+    category: 'Robotics & Control',
+    items: [
+      'CBF safety filters',
+      'MPPI',
+      'Hamilton-Jacobi reachability',
+      'RL policy deployment',
+      'Sim-to-real transfer',
+      'Legged robots (Unitree Go2)',
+      'Unitree SDK2',
+      'LibTorch',
     ],
   },
   {
-    id: 'cbf',
-    heading: 'CBF Safety Filter',
+    category: 'Simulation',
+    items: ['MuJoCo', 'Isaac Gym', 'PyBullet', 'Digital twin development'],
+  },
+  {
+    category: 'Hardware & Lab',
+    items: [
+      'Jetson Orin',
+      'LiDAR',
+      'Camera-based perception',
+      'Kelvin resistance measurement',
+      'Experimental design',
+      'Hand tools',
+    ],
+  },
+  {
+    category: 'Tools & Systems',
+    items: ['Git', 'Linux', 'Windows', 'Network & computer setup', 'Claude Code'],
+  },
+];
+
+/** Short, dated highlights for the About area. Newest first. */
+export const updates: { date: string; text: string }[] = [
+  {
+    date: 'Oct. 2025',
+    text: 'Joined the Learning and Control Lab at UNM (advisor: Prof. Leilei Cui), starting the CBF safety filter work on the Go2.',
+  },
+  {
+    date: '2025',
+    text: 'Received the Sandia Thunderbird Award (Courageous) for internship performance.',
+  },
+  {
+    date: 'June 2025',
+    text: 'Started as a Mechanical Engineering Intern at Sandia National Laboratories, PV Reliability Group.',
+  },
+  // TODO(alex): add dated entries for more recent milestones (the LiDAR
+  // perception update to the CBF filter, starting the Agile-But-Safe Go2
+  // port) once you can confirm when they happened.
+];
+
+export const sections: Section[] = [
+  {
+    id: 'research',
+    heading: 'Research',
     intro:
-      'A Control Barrier Function (CBF) safety filter for the Unitree Go2, taken from prototype to on-robot deployment.',
+      'Undergraduate research in the Learning and Control Lab at the University of New Mexico (advisor: Prof. Leilei Cui), focused on safe autonomous control for legged robots — from a Control Barrier Function safety filter taken to on-robot deployment, to sampling-based planning, to an in-progress port of a state-of-the-art agile-locomotion framework.',
     cards: [
       {
         title: 'Control Barrier Function Safety Filter on the Unitree Go2',
+        dateRange: 'Oct. 2025 – Present',
         body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking.',
         featured: true,
         repoUrl: 'https://github.com/pseudower1/go2-cbf',
+        meta: {
+          role: 'Undergraduate Research Assistant, Learning and Control Lab (advisor: Prof. Leilei Cui)',
+          status: 'Deployed on hardware',
+          stack: ['C++', 'Python', 'MuJoCo', 'Unitree SDK2', 'LibTorch', 'Jetson Orin', 'LiDAR'],
+        },
+        contribution:
+          'Prototyped the closed-form CBF filter, ported it to a real-time C++ implementation wired into the on-robot deployer, and later adapted its perception front end from camera to LiDAR.',
         media: {
           type: 'segments',
           segments: [
@@ -181,19 +249,85 @@ export const sections: Section[] = [
           ],
         },
       },
+      {
+        title: 'MPPI–CBF Integration for Safe Quadruped Navigation',
+        dateRange: 'Oct. 2025 – Present',
+        body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance. This work is currently simulation-only; transferring the approach to hardware is ongoing.',
+        featured: true,
+        repoUrl: 'https://github.com/pseudower1/go2-mppi-cbf',
+        meta: {
+          role: 'Undergraduate Research Assistant, Learning and Control Lab (advisor: Prof. Leilei Cui)',
+          status: 'Simulation only',
+          stack: ['Python'],
+        },
+        contribution:
+          'Integrated the MPPI planner with the CBF safety filter and validated the combined controller across all three obstacle courses.',
+        media: {
+          type: 'showcase',
+          video: {
+            src: 'assets/videos/cbfmppi_sidebyside.mp4',
+            poster: 'assets/images/mppi_cbf_compare.png',
+          },
+          videoCaption: 'Side-by-side: plain MPPI vs MPPI-CBF (sim)',
+          imagesCaption: 'MPPI-CBF results across obstacle courses',
+          images: [
+            {
+              src: 'assets/images/mppi_cbf_single.png',
+              alt: 'MPPI-CBF top-down path around a single obstacle with barrier h(t), speed command, and base-height plots.',
+            },
+            {
+              src: 'assets/images/mppi_cbf_clutter.png',
+              alt: 'MPPI-CBF navigating a cluttered field of obstacles from start to goal.',
+            },
+            {
+              src: 'assets/images/mppi_cbf_maze.png',
+              alt: 'MPPI-CBF path through a maze-like course with enforced keep-out margins.',
+            },
+            {
+              src: 'assets/images/mppi_cbf_gauntlet.png',
+              alt: 'MPPI-CBF traversing a gauntlet of staggered obstacles while maintaining clearance.',
+            },
+          ],
+        },
+      },
+      {
+        title: 'Porting Agile But Safe to the Unitree Go2',
+        body: 'Working to recreate Agile But Safe (ABS) — a framework that pairs a high-speed agile locomotion policy with a learned reach-avoid safety value network and a recovery policy, letting a legged robot navigate cluttered environments at speed without colliding with obstacles. The original codebase targets the Unitree Go1 and has no existing Go2 port, so this project is building one from scratch. Current progress: training the base position-tracking locomotion policy on the Go2’s model in simulation over rough, obstacle-scattered terrain — the foundation the agile and safety policies still need to be trained on top of.',
+        featured: true,
+        repoUrl: 'https://agile-but-safe.github.io/',
+        repoLabel: 'View original ABS project',
+        meta: {
+          role: 'Independent project',
+          status: 'In progress',
+          stack: ['Python'],
+        },
+        media: {
+          type: 'single-video',
+          video: {
+            src: 'assets/videos/go2_pos_rough.mp4',
+            poster: 'assets/images/go2_pos_rough_poster.jpg',
+          },
+          caption: 'Early, rough-terrain training of the Go2 locomotion policy — still a work in progress.',
+        },
+      },
     ],
   },
   {
-    id: 'rl-drone',
-    heading: 'Autonomous Drone Search-and-Sample',
+    id: 'projects',
+    heading: 'Projects',
     intro:
-      'A personal reinforcement-learning project: training a simulated quadrotor to search unknown terrain for scientific targets under real mission constraints.',
+      'Independent projects outside the lab, spanning reinforcement learning, spacecraft attitude control, and from-scratch hardware control.',
     cards: [
       {
         title: 'Autonomous Drone Search-and-Sample RL Controller',
         body: 'Trained a PPO policy (Stable-Baselines3, on gym-pybullet-drones) to fly a simulated quadrotor across an unknown planetary-analog patch of terrain, searching for candidate biosignature sites with a continuous "metal detector" style sensor and navigating to collect them under a finite battery and time budget — while learning to recognize and abandon decoy sites that read as promising but are dead ends. Benchmarked against classical lawnmower-sweep, gradient-follower, and random-walk baselines: the trained policy detects more targets per episode than every baseline, and a hybrid controller (RL search, handing off to lawnmower-style homing on detection) collects more of what it finds.',
         featured: true,
         repoUrl: 'https://github.com/pseudower1/rl-drone',
+        meta: {
+          role: 'Independent project',
+          status: 'Simulation only',
+          stack: ['Python', 'Stable-Baselines3', 'gym-pybullet-drones', 'PPO'],
+        },
         media: {
           type: 'showcase',
           video: {
@@ -219,16 +353,60 @@ export const sections: Section[] = [
           ],
         },
       },
+      {
+        title: 'Slew Maneuver & Pointing Budget — Target-Tracking CubeSat ADCS',
+        body: 'A self-contained simulation of a reaction-wheel-stabilized 6U CubeSat tracking targets during overhead passes, built to test whether representative small-sat ADCS hardware can hold a 0.1° pointing requirement while slewing. Across three ground-target passes the controller holds the requirement with roughly 2.5x margin. An extension pass then stress-tests the design further — swapping the fixed ground target for a second, fast-moving satellite in a 96.4 km, 6.95 km/s crossing encounter — and finds the one scenario where the hardware’s margin actually runs out: a real reaction-wheel momentum saturation event that briefly exceeds the pointing requirement.',
+        featured: true,
+        meta: {
+          role: 'Independent project',
+          status: 'Simulation only',
+          stack: ['Python', 'Skyfield', 'SGP4'],
+        },
+        media: {
+          type: 'single-video',
+          video: {
+            src: 'assets/videos/satellite_intersat_encounter.mp4',
+            poster: 'assets/images/satellite_intersat_poster.jpg',
+          },
+          caption:
+            'Inter-satellite tracking: the ADCS momentarily exceeds the 0.1° pointing requirement during a 6.95 km/s crossing encounter — the one scenario where the design’s margin runs out.',
+        },
+      },
+      {
+        title: 'Custom Robotic Arm — Learned From Scratch',
+        body: 'An old desktop robotic arm with no surviving vendor SDK, starter code, or instruction manual. Its control scheme, joint mapping, and command interface all had to be learned from scratch by testing and probing the hardware directly. Wired it to a custom driver/controller board and built a control pipeline from nothing to get it moving reliably through a sequence of manipulation motions.',
+        wideMedia: true,
+        meta: {
+          role: 'Independent project',
+          status: 'Deployed on hardware',
+        },
+        media: {
+          type: 'single-video',
+          video: {
+            src: 'assets/videos/robot_arm_demo.mp4',
+            poster: 'assets/images/robot_arm_demo_poster.jpg',
+          },
+          caption: 'The arm running its from-scratch control pipeline.',
+        },
+      },
     ],
   },
   {
-    id: 'sandia',
-    heading: 'Sandia National Laboratories',
-    intro:
-      'Internship at Sandia National Laboratories investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spanned hands-on sample preparation, four-wire (Kelvin) resistance measurement, and controlled electrical testing across thousands of connector samples, along with data collection and analysis in a national-laboratory environment. Presented results at DOE quarterly program reviews and to 100+ industry experts at the PVQAT solar reliability conference. Recipient of the Sandia Thunderbird Award.',
+    id: 'experience',
+    heading: 'Experience',
     cards: [
       {
+        title: 'Sandia National Laboratories',
+        dateRange: 'June 2025 – Present',
         featured: true,
+        body: 'Investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spanned hands-on sample preparation, four-wire (Kelvin) resistance measurement, and controlled electrical testing across thousands of connector samples, along with data collection and analysis in a national-laboratory environment. Recipient of the Sandia Thunderbird Award.',
+        meta: {
+          role: 'Mechanical Engineering Intern, PV Reliability Group',
+        },
+        talks: [
+          'DOE quarterly program reviews',
+          'PVQAT solar reliability conference (100+ industry experts)',
+        ],
         media: {
           type: 'slideshow',
           images: [
@@ -249,63 +427,6 @@ export const sections: Section[] = [
               alt: 'Power supply and precision multimeter capturing connector resistance under load.',
             },
           ],
-        },
-      },
-    ],
-  },
-  {
-    id: 'ongoing',
-    heading: 'Ongoing Work',
-    intro: 'Active projects still taking shape.',
-    cards: [
-      {
-        title: 'Porting Agile But Safe to the Unitree Go2',
-        body: 'Working to recreate Agile But Safe (ABS) — a framework that pairs a high-speed agile locomotion policy with a learned reach-avoid safety value network and a recovery policy, letting a legged robot navigate cluttered environments at speed without colliding with obstacles. The original codebase targets the Unitree Go1 and has no existing Go2 port, so this project is building one from scratch. Current progress: training the base position-tracking locomotion policy on the Go2’s model in simulation over rough, obstacle-scattered terrain — the foundation the agile and safety policies still need to be trained on top of.',
-        featured: true,
-        repoUrl: 'https://agile-but-safe.github.io/',
-        repoLabel: 'View original ABS project',
-        media: {
-          type: 'single-video',
-          video: {
-            src: 'assets/videos/go2_pos_rough.mp4',
-            poster: 'assets/images/go2_pos_rough_poster.jpg',
-          },
-          caption: 'Early, rough-terrain training of the Go2 locomotion policy — still a work in progress.',
-        },
-      },
-    ],
-  },
-  {
-    id: 'other',
-    heading: 'Other',
-    intro:
-      'Additional projects that don’t fit neatly into the categories above.',
-    cards: [
-      {
-        title: 'Slew Maneuver & Pointing Budget — Target-Tracking CubeSat ADCS',
-        body: 'A self-contained simulation of a reaction-wheel-stabilized 6U CubeSat tracking targets during overhead passes, built to test whether representative small-sat ADCS hardware can hold a 0.1° pointing requirement while slewing. Across three ground-target passes the controller holds the requirement with roughly 2.5x margin. An extension pass then stress-tests the design further — swapping the fixed ground target for a second, fast-moving satellite in a 96.4 km, 6.95 km/s crossing encounter — and finds the one scenario where the hardware’s margin actually runs out: a real reaction-wheel momentum saturation event that briefly exceeds the pointing requirement.',
-        featured: true,
-        media: {
-          type: 'single-video',
-          video: {
-            src: 'assets/videos/satellite_intersat_encounter.mp4',
-            poster: 'assets/images/satellite_intersat_poster.jpg',
-          },
-          caption:
-            'Inter-satellite tracking: the ADCS momentarily exceeds the 0.1° pointing requirement during a 6.95 km/s crossing encounter — the one scenario where the design’s margin runs out.',
-        },
-      },
-      {
-        title: 'Custom Robotic Arm — Learned From Scratch',
-        body: 'An old desktop robotic arm with no surviving vendor SDK, starter code, or instruction manual. Its control scheme, joint mapping, and command interface all had to be learned from scratch by testing and probing the hardware directly. Wired it to a custom driver/controller board and built a control pipeline from nothing to get it moving reliably through a sequence of manipulation motions.',
-        wideMedia: true,
-        media: {
-          type: 'single-video',
-          video: {
-            src: 'assets/videos/robot_arm_demo.mp4',
-            poster: 'assets/images/robot_arm_demo_poster.jpg',
-          },
-          caption: 'The arm running its from-scratch control pipeline.',
         },
       },
     ],
@@ -343,6 +464,7 @@ export const sections: Section[] = [
       },
       {
         title: 'Sandia Thunderbird Intern Award',
+        dateRange: '2025',
         body: 'Received Sandia National Laboratories’ Intern Thunderbird Award (Courageous) from the Student Intern Programs, recognizing initiative and excellence shown during the internship.',
         media: {
           type: 'slideshow',
@@ -376,8 +498,3 @@ export const sections: Section[] = [
     ],
   },
 ];
-
-export const philosophy = {
-  heading: 'Philosophy',
-  body: 'I approach engineering and research with an emphasis on clarity, systems thinking, and practical impact. I value building things that work reliably, scale thoughtfully, and solve real problems. My goal is to combine technical depth with disciplined execution while continually learning across domains.',
-};
