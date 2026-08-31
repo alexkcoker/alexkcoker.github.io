@@ -164,8 +164,6 @@ export const sections: Section[] = [
         body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking.',
         featured: true,
         repoUrl: 'https://github.com/pseudower1/go2-cbf',
-        contribution:
-          'Prototyped the closed-form CBF filter, ported it to a real-time C++ implementation wired into the on-robot deployer, and later adapted its perception front end from camera to LiDAR.',
         media: {
           type: 'segments',
           segments: [
@@ -221,8 +219,6 @@ export const sections: Section[] = [
         body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance. This work is currently simulation-only; transferring the approach to hardware is ongoing.',
         featured: true,
         repoUrl: 'https://github.com/pseudower1/go2-mppi-cbf',
-        contribution:
-          'Integrated the MPPI planner with the CBF safety filter and validated the combined controller across all three obstacle courses.',
         media: {
           type: 'showcase',
           video: {
@@ -257,8 +253,6 @@ export const sections: Section[] = [
         featured: true,
         repoUrl: 'https://agile-but-safe.github.io/',
         repoLabel: 'View original ABS project',
-        contribution:
-          'Building the Go2 port from scratch: training the base locomotion policy in simulation, the foundation the agile and safety policies still need to be trained on top of.',
         media: {
           type: 'single-video',
           video: {
