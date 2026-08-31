@@ -132,45 +132,6 @@ export const contact = {
   cvPath: 'assets/cv/alex-coker-cv.pdf',
 };
 
-// Groups and wording match the CV's own "Technical Skills" section verbatim
-// (not the site-revamp brief's guessed list, which named "Isaac Lab" and
-// "ROS 2" — the CV says Isaac Gym, and doesn't list ROS 2 at all).
-export const skills: { category: string; items: string[] }[] = [
-  { category: 'Programming', items: ['Python', 'C++'] },
-  {
-    category: 'Robotics & Control',
-    items: [
-      'CBF safety filters',
-      'MPPI',
-      'Hamilton-Jacobi reachability',
-      'RL policy deployment',
-      'Sim-to-real transfer',
-      'Legged robots (Unitree Go2)',
-      'Unitree SDK2',
-      'LibTorch',
-    ],
-  },
-  {
-    category: 'Simulation',
-    items: ['MuJoCo', 'Isaac Gym', 'PyBullet', 'Digital twin development'],
-  },
-  {
-    category: 'Hardware & Lab',
-    items: [
-      'Jetson Orin',
-      'LiDAR',
-      'Camera-based perception',
-      'Kelvin resistance measurement',
-      'Experimental design',
-      'Hand tools',
-    ],
-  },
-  {
-    category: 'Tools & Systems',
-    items: ['Git', 'Linux', 'Windows', 'Network & computer setup', 'Claude Code'],
-  },
-];
-
 /** Short, dated highlights for the About area. Newest first. */
 export const updates: { date: string; text: string }[] = [
   {

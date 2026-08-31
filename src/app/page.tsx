@@ -1,13 +1,8 @@
 import Section from '@/components/Section';
 import About from '@/components/About';
 import Nav from '@/components/Nav';
-import Skills from '@/components/Skills';
 import Footer from '@/components/Footer';
 import { hero, sections } from '@/data/content';
-
-// Skills sits between "Experience" and "Awards" — after the work that
-// evidences it, before the accolades that close the page.
-const BEFORE_SKILLS = ['research', 'projects', 'experience'];
 
 export default function Home() {
   return (
@@ -26,22 +21,10 @@ export default function Home() {
         {/* ================= ABOUT ================= */}
         <About />
 
-        {/* ================= RESEARCH / PROJECTS / EXPERIENCE ================= */}
-        {sections
-          .filter((s) => BEFORE_SKILLS.includes(s.id))
-          .map((section) => (
-            <Section key={section.id} section={section} />
-          ))}
-
-        {/* ================= SKILLS ================= */}
-        <Skills />
-
-        {/* ================= AWARDS / OUTREACH ================= */}
-        {sections
-          .filter((s) => !BEFORE_SKILLS.includes(s.id))
-          .map((section) => (
-            <Section key={section.id} section={section} />
-          ))}
+        {/* ================= CONTENT SECTIONS ================= */}
+        {sections.map((section) => (
+          <Section key={section.id} section={section} />
+        ))}
       </main>
 
       <Footer />
