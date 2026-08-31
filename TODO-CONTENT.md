@@ -36,7 +36,6 @@ elsewhere. Add one and the site will pick it up automatically.
 - [ ] Custom Robotic Arm — Learned From Scratch (`projects` section)
 - [ ] UNM Pitch Contest — Arid Sustainability Award (`awards` section)
 - [ ] Lobo Hackathon — Second Place (`awards` section)
-- [ ] Design II Final Project — First Place Team Award (`awards` section)
 - [ ] GearMasters Volunteering (`outreach` section)
 
 ## Missing stack info (`src/data/content.ts`)
@@ -57,14 +56,54 @@ elsewhere. Add one and the site will pick it up automatically.
       in the source doc if you want it back to one page, then redo the
       conversion (or ask Claude to).
 
-## Custom domain (Phase 3.6 — not started)
+## Media weight (Phase 3.4)
+
+Poster frames, `preload="none"`, `loading="lazy"`, and explicit video
+aspect-ratios are all in place now, which should meaningfully cut *initial*
+page weight (nothing but posters and above-the-fold images fetch until you
+scroll to or interact with something). Total on-disk media is still ~41 MB
+(~15.7 MB images + ~25.7 MB video) — real for someone who reads the whole
+page. Per the brief, nothing was silently re-encoded; if you want to shrink
+it further, the options, biggest first:
+
+- `robot_arm_demo.mp4` (9.2 MB) and `go2_pos_rough.mp4` (4.1 MB) are the two
+  heaviest videos — both could likely drop 50%+ with a slightly lower
+  bitrate/resolution with no visible quality loss at the size they're
+  displayed on the page.
+- `sandia_connector.jpg` (3.3 MB), `sandia_bench.jpg` (2.9 MB), and
+  `sandia_kelvin.jpg` (2.0 MB) are full phone/DSLR-resolution photos shown
+  in a slideshow that's never displayed larger than the card width —
+  downscaling and re-compressing these would cut them to a few hundred KB
+  each with no visible difference.
+- Ask Claude to do this re-encode pass whenever you want it — holding off
+  by default since it touches your original source files.
+
+## Custom domain (Phase 3.6)
 
 - [ ] Decide on a custom domain. The current URL
       (`pseudower1.github.io/alexcoker`) puts a pseudonymous handle in front
-      of your real name, and that URL goes on a CV/PhD application.
-- [ ] Once a domain is chosen: add a `CNAME` file at `public/CNAME` and set
-      the DNS records the registrar requires (leave inactive until
-      confirmed — not done as part of this pass).
+      of your real name, and that URL goes on a CV/PhD application. **No
+      `CNAME` file has been added** — intentionally left inactive until you
+      confirm a domain, per the brief.
+- [ ] Once you've picked one, here's the actual GitHub Pages setup:
+  1. Buy/have the domain (e.g. via Namecheap, Google Domains successor,
+     Cloudflare Registrar, etc.).
+  2. At your DNS registrar, add records pointing at GitHub Pages:
+     - **Apex domain** (`alexcoker.com`): four `A` records at the apex (`@`)
+       pointing to GitHub Pages' IPs — `185.199.108.153`,
+       `185.199.109.153`, `185.199.110.153`, `185.199.111.153`. Also add an
+       `AAAA` set for IPv6: `2606:50c0:8000::153`, `2606:50c0:8001::153`,
+       `2606:50c0:8002::153`, `2606:50c0:8003::153`.
+     - **Subdomain** (`www.alexcoker.com` or similar): a `CNAME` record
+       pointing to `pseudower1.github.io`.
+  3. Create `public/CNAME` in this repo containing just the domain, e.g.
+     `alexcoker.com` (no `https://`, no trailing slash).
+  4. In the GitHub repo's **Settings → Pages**, enter the same custom
+     domain and wait for DNS to verify, then check **Enforce HTTPS** once
+     it's available.
+  5. Update `metadataBase` in `src/app/layout.tsx` (currently hardcoded to
+     `https://pseudower1.github.io/alexcoker/`) to the new domain, so
+     OG/Twitter image URLs resolve correctly.
 - [ ] Separately: your GitHub *username* (`pseudower1`) also appears in
       every project repo link (`github.com/pseudower1/go2-cbf`, etc.).
       Renaming the GitHub account is a related but distinct decision — note

@@ -21,6 +21,7 @@ export default function LightboxImage({
       <img
         src={src}
         alt={alt}
+        loading="lazy"
         onClick={() => setOpen(true)}
         className={`cursor-zoom-in ${className}`}
       />

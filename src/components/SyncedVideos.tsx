@@ -60,6 +60,7 @@ export default function SyncedVideos({
               ref={ref}
               src={asset(clip.src)}
               poster={clip.poster ? asset(clip.poster) : undefined}
+              preload="none"
               muted
               loop
               playsInline

@@ -42,6 +42,7 @@ export default function Slideshow({
           key={img.src}
           src={asset(img.src)}
           alt={img.alt}
+          loading="lazy"
           onClick={() => setLightboxOpen(true)}
           className={imgClass(i === index)}
         />

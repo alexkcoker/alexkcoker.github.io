@@ -16,7 +16,7 @@ export interface MediaSegment {
   heading: string;
   /** Optional paragraph shown under the heading, above the media. */
   body?: string;
-  video?: { src: string; poster?: string; caption?: string };
+  video?: { src: string; poster?: string; caption?: string; aspect?: string };
   image?: { src: string; alt: string; caption?: string };
   synced?: {
     left: { label: string; src: string; poster?: string };
@@ -30,11 +30,15 @@ export type CardMedia =
   | { type: 'image'; src: string; alt: string }
   | { type: 'slideshow'; images: { src: string; alt: string }[] }
   // A single self-hosted MP4 demo, full width, with an optional caption.
-  | { type: 'single-video'; video: { src: string; poster?: string }; caption?: string }
+  | {
+      type: 'single-video';
+      video: { src: string; poster?: string; aspect?: string };
+      caption?: string;
+    }
   // Featured project media: a playable MP4 plus an image slideshow.
   | {
       type: 'showcase';
-      video?: { src: string; poster?: string };
+      video?: { src: string; poster?: string; aspect?: string };
       videoCaption?: string;
       imagesCaption?: string;
       /** Reserved spot (dashed tile) for media not yet provided, e.g. on-robot footage. */
@@ -93,8 +97,13 @@ export interface Section {
 
 export const hero = {
   name: 'Alex Coker',
+  // Also used verbatim as the site's meta/OG/Twitter description (see
+  // layout.tsx) so the two can't drift out of sync again — this replaced an
+  // old "Physics student" framing that contradicted the CV (B.S. Mechanical
+  // Engineering, no physics background) per the site-revamp brief's
+  // identity-mismatch item.
   tagline:
-    'Robotics student at UNM working with dynamic platforms, path planning algorithms, and embedded control systems.',
+    'Mechanical engineering student at the University of New Mexico working on safe, learning-based control for legged robots — control barrier functions, MPPI, and hardware deployment on the Unitree Go2.',
 };
 
 // Facts below are drawn from Alex's CV (the version supplied 2026-08-30,
@@ -244,6 +253,7 @@ export const sections: Section[] = [
                 src: 'assets/videos/cbf_lidar_real.mp4',
                 poster: 'assets/images/cbf_lidar_real_poster.jpg',
                 caption: 'CBF safety filter on the real Go2, driven by LiDAR-based keep-out zone detection.',
+                aspect: 'aspect-[720/640]',
               },
             },
           ],
@@ -387,6 +397,7 @@ export const sections: Section[] = [
           video: {
             src: 'assets/videos/robot_arm_demo.mp4',
             poster: 'assets/images/robot_arm_demo_poster.jpg',
+            aspect: 'aspect-[1290/1080]',
           },
           caption: 'The arm running its from-scratch control pipeline.',
         },
@@ -453,15 +464,6 @@ export const sections: Section[] = [
           type: 'image',
           src: 'assets/images/hack.jpg',
           alt: 'Lobo Hackathon — Second Place',
-        },
-      },
-      {
-        title: 'Design II Final Project — First Place Team Award',
-        body: 'Competed in a class-wide engineering competition where teams designed and machined a car powered solely by mechanical energy, with the goal of traveling as close to 20 meters as possible. This project reinforced the importance of clear communication and strong organization within a team.',
-        media: {
-          type: 'image',
-          src: 'assets/images/design2_punks.jpg',
-          alt: 'Design II Final Project — PUNKS Mousetrap Car',
         },
       },
       {

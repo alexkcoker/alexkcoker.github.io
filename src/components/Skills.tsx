@@ -5,7 +5,7 @@ export default function Skills() {
   return (
     <section id="skills" className="mb-24">
       <h2 className="mb-8 text-[1.75rem] font-semibold">Skills</h2>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {skills.map((group) => (
           <div key={group.category}>
             <h3 className="mb-2 text-sm font-semibold text-text-primary">

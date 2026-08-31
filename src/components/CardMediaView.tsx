@@ -31,7 +31,11 @@ export default function CardMediaView({
   if (media.type === 'single-video') {
     return (
       <div className={`card-media ${className}`}>
-        <VideoPlayer src={media.video.src} poster={media.video.poster} />
+        <VideoPlayer
+          src={media.video.src}
+          poster={media.video.poster}
+          aspectClassName={media.video.aspect}
+        />
         {media.caption && (
           <p className="mt-1.5 text-sm text-text-secondary">{media.caption}</p>
         )}
@@ -72,7 +76,11 @@ export default function CardMediaView({
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {seg.video && (
                   <figure>
-                    <VideoPlayer src={seg.video.src} poster={seg.video.poster} />
+                    <VideoPlayer
+                      src={seg.video.src}
+                      poster={seg.video.poster}
+                      aspectClassName={seg.video.aspect}
+                    />
                     {seg.video.caption && (
                       <figcaption className="mt-1.5 text-sm text-text-secondary">
                         {seg.video.caption}
@@ -86,6 +94,7 @@ export default function CardMediaView({
                     <img
                       src={asset(seg.image.src)}
                       alt={seg.image.alt}
+                      loading="lazy"
                       className="w-full rounded-sm"
                     />
                     {seg.image.caption && (
@@ -114,7 +123,11 @@ export default function CardMediaView({
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {media.video && (
             <div>
-              <VideoPlayer src={media.video.src} poster={media.video.poster} />
+              <VideoPlayer
+                src={media.video.src}
+                poster={media.video.poster}
+                aspectClassName={media.video.aspect}
+              />
               {media.videoCaption && (
                 <p className="mt-1.5 text-sm text-text-secondary">
                   {media.videoCaption}

@@ -122,14 +122,12 @@ export default function Card({ item }: { item: CardItem }) {
           {item.media && <CardMediaView media={item.media} featured />}
         </>
       ) : (
+        // Content always precedes media in DOM order — a screen reader (or a
+        // stacked mobile layout, where `order` doesn't apply below `md:`)
+        // hits the heading before a video's control set, not after. Desktop
+        // left/right column placement is done purely with CSS `order`.
         <>
-          {item.media && (
-            <CardMediaView
-              media={item.media}
-              className={item.reverse ? 'md:order-2' : ''}
-            />
-          )}
-          <div className={item.reverse ? 'md:order-1' : ''}>
+          <div className={item.reverse ? 'md:order-1' : 'md:order-2'}>
             {item.dateRange && (
               <p className="text-sm text-text-secondary">{item.dateRange}</p>
             )}
@@ -148,6 +146,12 @@ export default function Card({ item }: { item: CardItem }) {
             )}
             <CardExtras item={item} />
           </div>
+          {item.media && (
+            <CardMediaView
+              media={item.media}
+              className={item.reverse ? 'md:order-2' : 'md:order-1'}
+            />
+          )}
         </>
       )}
     </div>
