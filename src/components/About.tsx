@@ -34,7 +34,22 @@ export default function About() {
                   <span className="w-24 shrink-0 text-sm text-text-secondary">
                     {u.date}
                   </span>
-                  <span>{u.text}</span>
+                  <span>
+                    {u.text}
+                    {u.url && (
+                      <>
+                        {' '}
+                        <a
+                          href={u.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link"
+                        >
+                          {u.linkLabel ?? 'Learn more'}
+                        </a>
+                      </>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>

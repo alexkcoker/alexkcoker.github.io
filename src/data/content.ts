@@ -133,14 +133,25 @@ export const contact = {
 };
 
 /** Short, dated highlights for the About area. Newest first. */
-export const updates: { date: string; text: string }[] = [
+export const updates: {
+  date: string;
+  text: string;
+  url?: string;
+  linkLabel?: string;
+}[] = [
+  {
+    date: 'Sept. 2026',
+    text: 'Presented at PVQAT TG10 (Junction Box Connectors), the international task group on PV connector durability and reliability.',
+    url: 'https://www.pvqat.org/project-status/task-group-10',
+    linkLabel: 'PVQAT TG10',
+  },
+  {
+    date: 'Aug. 2026',
+    text: 'Received the Sandia Thunderbird Award (Courageous) for internship performance.',
+  },
   {
     date: 'Oct. 2025',
     text: 'Joined the Learning and Control Lab at UNM (advisor: Prof. Leilei Cui), starting the CBF safety filter work on the Go2.',
-  },
-  {
-    date: '2025',
-    text: 'Received the Sandia Thunderbird Award (Courageous) for internship performance.',
   },
   {
     date: 'June 2025',
@@ -408,7 +419,7 @@ export const sections: Section[] = [
       },
       {
         title: 'Sandia Thunderbird Intern Award',
-        dateRange: '2025',
+        dateRange: 'Aug. 2026',
         body: 'Received Sandia National Laboratories’ Intern Thunderbird Award (Courageous) from the Student Intern Programs, recognizing initiative and excellence shown during the internship.',
         media: {
           type: 'slideshow',
