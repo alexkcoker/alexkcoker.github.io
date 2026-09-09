@@ -363,10 +363,7 @@ export const sections: Section[] = [
         title: 'Sandia National Laboratories',
         dateRange: 'June 2025 – Present',
         featured: true,
-        body: 'Investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spanned hands-on sample preparation, four-wire (Kelvin) resistance measurement, and controlled electrical testing across thousands of connector samples, along with data collection and analysis in a national-laboratory environment. Recipient of the Sandia Thunderbird Award.',
-        meta: {
-          role: 'Mechanical Engineering Intern, PV Reliability Group',
-        },
+        body: 'Investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spanned hands-on sample preparation, four-wire (Kelvin) resistance measurement, and controlled electrical testing across thousands of connector samples, along with data collection and analysis in a national-laboratory environment. Mentored another intern on the team. Recipient of the Sandia Thunderbird Award.',
         talks: [
           'DOE quarterly program reviews',
           'PVQAT solar reliability conference (100+ industry experts)',
