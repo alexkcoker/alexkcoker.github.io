@@ -88,12 +88,21 @@ it further, the options, biggest first:
       isn't guaranteed forever — update any external links you control
       (CV, LinkedIn, applications) to the new `alexkcoker` URLs directly
       rather than relying on the redirect.
-- [ ] Decide on a custom domain. The current URL
-      (`alexkcoker.github.io/alexcoker`) is better than the old
-      pseudonymous handle, but still has a redundant `/alexcoker` suffix
-      that a real domain would drop entirely. **No `CNAME` file has been
-      added** — intentionally left inactive until you confirm a domain,
-      per the brief.
+- [x] Repo renamed from `alexcoker` to `alexkcoker.github.io` (2026-09-12) —
+      GitHub treats that exact name as a "user site" repo, served from the
+      domain root with no suffix. The site now lives at
+      `https://alexkcoker.github.io/` (no `/alexcoker`). Updated
+      `metadataBase` in `src/app/layout.tsx` and the local git remote to
+      match; `next.config.mjs`/the deploy workflow already auto-detect this
+      case, so no other config changes were needed. Note: the *old* full
+      Pages URL (`alexkcoker.github.io/alexcoker`) does not redirect —
+      GitHub only redirects git clone URLs on rename, not Pages URLs — so
+      it now 404s. Update any link you'd already shared to the new one.
+- [ ] A real custom domain is still worth it eventually for the
+      professional-URL goal generally (not just to drop a suffix, which is
+      solved now) — the CV/PhD-application angle from the original brief
+      still applies. **No `CNAME` file has been added** — intentionally
+      left inactive until you confirm a domain.
 - [ ] Once you've picked one, here's the actual GitHub Pages setup:
   1. Buy/have the domain (e.g. via Namecheap, Google Domains successor,
      Cloudflare Registrar, etc.).
