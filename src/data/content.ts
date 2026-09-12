@@ -126,7 +126,7 @@ export const researchStatement = {
 export const contact = {
   emailUser: 'acoker',
   emailDomain: 'unm.edu',
-  github: 'https://github.com/pseudower1',
+  github: 'https://github.com/alexkcoker',
   linkedin: 'https://linkedin.com/in/alexkcoker',
   // TODO(alex): add an ORCID iD here once you have one.
   cvPath: 'assets/cv/alex-coker-cv.pdf',
@@ -174,7 +174,7 @@ export const sections: Section[] = [
         dateRange: 'Oct. 2025 – Present',
         body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking.',
         featured: true,
-        repoUrl: 'https://github.com/pseudower1/go2-cbf',
+        repoUrl: 'https://github.com/alexkcoker/go2-cbf',
         media: {
           type: 'segments',
           segments: [
@@ -229,7 +229,7 @@ export const sections: Section[] = [
         dateRange: 'Oct. 2025 – Present',
         body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance. This work is currently simulation-only; transferring the approach to hardware is ongoing.',
         featured: true,
-        repoUrl: 'https://github.com/pseudower1/go2-mppi-cbf',
+        repoUrl: 'https://github.com/alexkcoker/go2-mppi-cbf',
         media: {
           type: 'showcase',
           video: {
@@ -285,7 +285,7 @@ export const sections: Section[] = [
         title: 'Autonomous Drone Search-and-Sample RL Controller',
         body: 'Trained a PPO policy (Stable-Baselines3, on gym-pybullet-drones) to fly a simulated quadrotor across an unknown planetary-analog patch of terrain, searching for candidate biosignature sites with a continuous "metal detector" style sensor and navigating to collect them under a finite battery and time budget — while learning to recognize and abandon decoy sites that read as promising but are dead ends. Benchmarked against classical lawnmower-sweep, gradient-follower, and random-walk baselines: the trained policy detects more targets per episode than every baseline, and a hybrid controller (RL search, handing off to lawnmower-style homing on detection) collects more of what it finds.',
         featured: true,
-        repoUrl: 'https://github.com/pseudower1/rl-drone',
+        repoUrl: 'https://github.com/alexkcoker/rl-drone',
         meta: {
           role: 'Independent project',
           status: 'Simulation only',

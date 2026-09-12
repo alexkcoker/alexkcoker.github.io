@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Alex Coker' }],
   // Known production URL — lets the relative OG/icon paths below resolve to
   // correct absolute URLs for link-preview crawlers regardless of basePath.
-  metadataBase: new URL('https://pseudower1.github.io/alexcoker/'),
+  metadataBase: new URL('https://alexkcoker.github.io/alexcoker/'),
   icons: {
     icon: asset('assets/favicon.ico'),
   },

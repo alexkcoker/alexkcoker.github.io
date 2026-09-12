@@ -80,11 +80,20 @@ it further, the options, biggest first:
 
 ## Custom domain (Phase 3.6)
 
+- [x] GitHub username renamed from `pseudower1` to `alexkcoker` (2026-09-12).
+      Updated everywhere it was hardcoded: the contact GitHub link, all
+      three project repo links, `metadataBase` in `src/app/layout.tsx`, and
+      the local git remote. The old `pseudower1.*` URLs should redirect to
+      the new ones for as long as nobody else claims that username, but
+      isn't guaranteed forever — update any external links you control
+      (CV, LinkedIn, applications) to the new `alexkcoker` URLs directly
+      rather than relying on the redirect.
 - [ ] Decide on a custom domain. The current URL
-      (`pseudower1.github.io/alexcoker`) puts a pseudonymous handle in front
-      of your real name, and that URL goes on a CV/PhD application. **No
-      `CNAME` file has been added** — intentionally left inactive until you
-      confirm a domain, per the brief.
+      (`alexkcoker.github.io/alexcoker`) is better than the old
+      pseudonymous handle, but still has a redundant `/alexcoker` suffix
+      that a real domain would drop entirely. **No `CNAME` file has been
+      added** — intentionally left inactive until you confirm a domain,
+      per the brief.
 - [ ] Once you've picked one, here's the actual GitHub Pages setup:
   1. Buy/have the domain (e.g. via Namecheap, Google Domains successor,
      Cloudflare Registrar, etc.).
@@ -95,16 +104,12 @@ it further, the options, biggest first:
        `AAAA` set for IPv6: `2606:50c0:8000::153`, `2606:50c0:8001::153`,
        `2606:50c0:8002::153`, `2606:50c0:8003::153`.
      - **Subdomain** (`www.alexcoker.com` or similar): a `CNAME` record
-       pointing to `pseudower1.github.io`.
+       pointing to `alexkcoker.github.io`.
   3. Create `public/CNAME` in this repo containing just the domain, e.g.
      `alexcoker.com` (no `https://`, no trailing slash).
   4. In the GitHub repo's **Settings → Pages**, enter the same custom
      domain and wait for DNS to verify, then check **Enforce HTTPS** once
      it's available.
   5. Update `metadataBase` in `src/app/layout.tsx` (currently hardcoded to
-     `https://pseudower1.github.io/alexcoker/`) to the new domain, so
+     `https://alexkcoker.github.io/alexcoker/`) to the new domain, so
      OG/Twitter image URLs resolve correctly.
-- [ ] Separately: your GitHub *username* (`pseudower1`) also appears in
-      every project repo link (`github.com/pseudower1/go2-cbf`, etc.).
-      Renaming the GitHub account is a related but distinct decision — note
-      it here so it isn't lost, but nothing has been changed.
