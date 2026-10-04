@@ -53,7 +53,16 @@ export interface CardItem {
   title?: string;
   /** Paragraph body. Omit when using `bullets`. */
   body?: string;
+  /** Turns one phrase inside `body` into a link (see TextWithLink). */
+  bodyLink?: { text: string; href: string };
   bullets?: string[];
+  /** Publication author list, in order. `self: true` bolds that author. */
+  authors?: { name: string; self?: boolean }[];
+  /**
+   * Publication venue and review status. Word this so it can never read as
+   * accepted while a paper is still under review.
+   */
+  venue?: string;
   media?: CardMedia;
   /** Mirrors the original `.card-reverse` asymmetric layout. */
   reverse?: boolean;
@@ -97,30 +106,22 @@ export interface Section {
 
 export const hero = {
   name: 'Alex Coker',
-  // Also used verbatim as the site's meta/OG/Twitter description (see
-  // layout.tsx) so the two can't drift out of sync again — this replaced an
-  // old "Physics student" framing that contradicted the CV (B.S. Mechanical
-  // Engineering, no physics background) per the site-revamp brief's
-  // identity-mismatch item.
+  // Short positioning line under the name. Also used verbatim as the site's
+  // meta/OG/Twitter description (see layout.tsx) so the two can't drift out of
+  // sync. Deliberately kept free of the biographical detail in `about.bio`
+  // below — the two used to repeat each other almost word for word.
   tagline:
-    'Mechanical engineering student at the University of New Mexico working on safe, learning-based control for legged robots — control barrier functions, MPPI, and hardware deployment on the Unitree Go2.',
+    'Safe, learning-based control for legged robots — control barrier functions, reachability, and hardware deployment on the Unitree Go2.',
 };
 
 // Facts below are drawn from Alex's CV (the version supplied 2026-08-30,
 // confirmed as authoritative over the older PDF previously in the repo).
+//
+// This single paragraph replaced three near-identical blurbs that used to open
+// the page (hero tagline, this bio, and a separate "Research Direction" block).
 export const about = {
   headshot: 'assets/images/headshot.jpg',
-  bio: 'B.S. in Mechanical Engineering at the University of New Mexico (expected Spring 2027). Undergraduate researcher in the Learning and Control Lab under Prof. Leilei Cui, working on safety-critical control for legged robots — combining control barrier functions, MPPI, and Hamilton-Jacobi reachability with learned locomotion policies on a Unitree Go2 quadruped, from simulation through hardware deployment.',
-};
-
-// Replaces the old "Philosophy" section per the site-revamp brief: a
-// research-direction statement placed near the top, adjacent to the About
-// block, instead of a generic engineering-philosophy paragraph at the bottom.
-export const researchStatement = {
-  heading: 'Research Direction',
-  body: 'My work centers on layering formal safety guarantees onto learned locomotion policies for legged robots — using control barrier functions and reachability-based methods to keep high-performance, learned controllers provably safe, carried from simulation through to real hardware on a Unitree Go2 quadruped.',
-  // TODO(alex): review this paragraph and make it yours.
-  // TODO(alex): add one sentence on what you want to pursue in a PhD.
+  bio: 'B.S. in Mechanical Engineering at the University of New Mexico (expected Spring 2027) and an undergraduate researcher in the Learning and Control Lab under Prof. Leilei Cui. My work layers formal safety guarantees onto learned locomotion policies for legged robots, combining control barrier functions, MPPI, and Hamilton-Jacobi reachability to keep high-performance learned controllers provably safe — carried from simulation through to hardware on a Unitree Go2 quadruped.',
 };
 
 export const contact = {
@@ -136,9 +137,17 @@ export const contact = {
 export const updates: {
   date: string;
   text: string;
+  /** Trailing link rendered after the text. */
   url?: string;
   linkLabel?: string;
+  /** Turns one phrase inside `text` into a link (see TextWithLink). */
+  inlineLink?: { text: string; href: string };
 }[] = [
+  {
+    date: 'Oct. 2026',
+    text: 'Submitted my first paper, Exact-Safe MPPI, to ACC 2027 (with Prof. Leilei Cui).',
+    inlineLink: { text: 'Exact-Safe MPPI', href: '#publications' },
+  },
   {
     date: 'Sept. 2026',
     text: 'Presented at PVQAT TG10 (Junction Box Connectors), the international task group on PV connector durability and reliability.',
@@ -166,13 +175,13 @@ export const sections: Section[] = [
   {
     id: 'research',
     heading: 'Research',
-    intro:
-      'Undergraduate research in the Learning and Control Lab at the University of New Mexico (advisor: Prof. Leilei Cui), focused on safe autonomous control for legged robots — from a Control Barrier Function safety filter taken to on-robot deployment, to sampling-based planning, to an in-progress port of a state-of-the-art agile-locomotion framework.',
+    // No intro paragraph here: it restated the lab/advisor line from the bio
+    // above and then summarised the three cards that follow it.
     cards: [
       {
         title: 'Control Barrier Function Safety Filter on the Unitree Go2',
         dateRange: 'Oct. 2025 – Present',
-        body: 'Recreated Aaron Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking.',
+        body: 'Recreated Ames-style Control Barrier Functions as a safety filter wrapping the Go2’s reinforcement-learning locomotion policy: the CBF minimally edits the velocity command so the robot’s body cannot enter a keep-out zone, while the learned policy handles low-level tracking.',
         featured: true,
         repoUrl: 'https://github.com/alexkcoker/go2-cbf',
         media: {
@@ -180,7 +189,7 @@ export const sections: Section[] = [
           segments: [
             {
               heading: 'In Simulation',
-              body: 'Prototyped the filter as a closed-form, single-integrator CBF, then closed the loop in MuJoCo with the trained locomotion policy. With the filter active the robot skirts the keep-out zone — the barrier h(t) stays non-negative and the base remains upright — whereas with it disabled the policy walks straight in.',
+              body: 'Prototyped the filter as a closed-form, single-integrator CBF, then closed the loop in MuJoCo with a trained locomotion policy. With the filter active the robot skirts the keep-out zone — the barrier h(t) stays non-negative and the base remains upright — whereas with it disabled the policy walks straight in.',
               video: {
                 src: 'assets/videos/cbf_sim_sidebyside.mp4',
                 poster: 'assets/images/cbf_sim_poster.png',
@@ -227,7 +236,11 @@ export const sections: Section[] = [
       {
         title: 'MPPI–CBF Integration for Safe Quadruped Navigation',
         dateRange: 'Oct. 2025 – Present',
-        body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance. This work is currently simulation-only; transferring the approach to hardware is ongoing.',
+        body: 'Integrated Model Predictive Path Integral (MPPI) control with Control Barrier Functions (CBF) to enable safe, autonomous point-to-point navigation on a Unitree Go2 quadruped. The sampling-based MPPI planner generates obstacle-avoiding trajectories while a CBF safety filter enforces formal keep-out guarantees around obstacles. Validated across cluttered, maze, and gauntlet courses in simulation — where plain MPPI entered keep-out zones, the CBF-filtered controller held positive clearance. This work is currently simulation-only; transferring the approach to hardware is ongoing. It led to a paper submitted to ACC 2027.',
+        bodyLink: {
+          text: 'a paper submitted to ACC 2027',
+          href: '#publications',
+        },
         featured: true,
         repoUrl: 'https://github.com/alexkcoker/go2-mppi-cbf',
         media: {
@@ -276,6 +289,26 @@ export const sections: Section[] = [
     ],
   },
   {
+    id: 'publications',
+    heading: 'Publications',
+    cards: [
+      {
+        title:
+          'Exact-Safe MPPI: Safety-Aware Sampling with Nonsmooth Control Barrier Functions',
+        authors: [
+          { name: 'Alexander Coker', self: true },
+          { name: 'Leilei Cui' },
+        ],
+        venue:
+          'Submitted to the 2027 American Control Conference (ACC) · under review',
+        body: 'MPPI plans by sampling many candidate trajectories, but nothing in it enforces safety. The usual way to combine several control barrier functions — blending them into one smooth “soft minimum” — quietly shrinks the set of states the planner is allowed to use, and can close off a gap the robot could legitimately fit through; sampling more trajectories never recovers it. This work composes the barriers using their exact minimum instead, enforcing every nearly-active safety constraint together in a small optimization solved during both planning and execution, and confirms in simulation the predicted ln 2 threshold below which the smoothed approach fails to find the gap.',
+        // Videos only — the paper itself is not public while under review.
+        repoUrl: 'https://github.com/lc-lab25/Exact-Safe-MPPI',
+        repoLabel: 'Videos',
+      },
+    ],
+  },
+  {
     id: 'projects',
     heading: 'Projects',
     intro:
@@ -286,11 +319,6 @@ export const sections: Section[] = [
         body: 'Trained a PPO policy (Stable-Baselines3, on gym-pybullet-drones) to fly a simulated quadrotor across an unknown planetary-analog patch of terrain, searching for candidate biosignature sites with a continuous "metal detector" style sensor and navigating to collect them under a finite battery and time budget — while learning to recognize and abandon decoy sites that read as promising but are dead ends. Benchmarked against classical lawnmower-sweep, gradient-follower, and random-walk baselines: the trained policy detects more targets per episode than every baseline, and a hybrid controller (RL search, handing off to lawnmower-style homing on detection) collects more of what it finds.',
         featured: true,
         repoUrl: 'https://github.com/alexkcoker/rl-drone',
-        meta: {
-          role: 'Independent project',
-          status: 'Simulation only',
-          stack: ['Python', 'Stable-Baselines3', 'gym-pybullet-drones', 'PPO'],
-        },
         media: {
           type: 'showcase',
           video: {
@@ -317,14 +345,9 @@ export const sections: Section[] = [
         },
       },
       {
-        title: 'Slew Maneuver & Pointing Budget — Target-Tracking CubeSat ADCS',
-        body: 'A self-contained simulation of a reaction-wheel-stabilized 6U CubeSat tracking targets during overhead passes, built to test whether representative small-sat ADCS hardware can hold a 0.1° pointing requirement while slewing. Across three ground-target passes the controller holds the requirement with roughly 2.5x margin. An extension pass then stress-tests the design further — swapping the fixed ground target for a second, fast-moving satellite in a 96.4 km, 6.95 km/s crossing encounter — and finds the one scenario where the hardware’s margin actually runs out: a real reaction-wheel momentum saturation event that briefly exceeds the pointing requirement.',
+        title: 'Keeping a Small Satellite Pointed at a Moving Target',
+        body: 'A simulation of a shoebox-sized satellite — a 6U CubeSat — that has to keep its instrument aimed at a target while both it and the target are moving. The satellite turns itself using spinning flywheels called reaction wheels, and the question was whether ordinary small-satellite hardware is precise enough to stay on target within a tenth of a degree, about the width of a credit card seen from 50 metres away. Tracking fixed points on the ground across three overhead passes, it held that accuracy with roughly 2.5 times the margin it needed. The harder test was aiming at another satellite instead of the ground — a crossing encounter 96 km away at 6.95 km/s. That is where the hardware ran out of room: the flywheels reached their maximum spin and briefly could not correct any further, and the aim drifted outside the requirement for a moment.',
         featured: true,
-        meta: {
-          role: 'Independent project',
-          status: 'Simulation only',
-          stack: ['Python', 'Skyfield', 'SGP4'],
-        },
         media: {
           type: 'single-video',
           video: {
@@ -339,10 +362,6 @@ export const sections: Section[] = [
         title: 'Custom Robotic Arm — Learned From Scratch',
         body: 'An old desktop robotic arm with no surviving vendor SDK, starter code, or instruction manual. Its control scheme, joint mapping, and command interface all had to be learned from scratch by testing and probing the hardware directly. Wired it to a custom driver/controller board and built a control pipeline from nothing to get it moving reliably through a sequence of manipulation motions.',
         wideMedia: true,
-        meta: {
-          role: 'Independent project',
-          status: 'Deployed on hardware',
-        },
         media: {
           type: 'single-video',
           video: {
@@ -398,7 +417,7 @@ export const sections: Section[] = [
     cards: [
       {
         title: 'UNM Pitch Contest — Arid Sustainability Award',
-        body: 'Awarded for a technology commercialization concept addressing sustainability challenges in arid environments, emphasizing technical feasibility and real-world impact.',
+        body: 'Pitched a technology commercialization concept for sustainability in arid environments to a judging panel, and won the Arid Sustainability Award. The result turned as much on the delivery as on the idea: framing a technical concept for an audience that did not share my background, making the case for its feasibility and real-world impact in the time allowed, and defending it under questioning.',
         media: {
           type: 'image',
           src: 'assets/images/greengro.jpg',
@@ -407,7 +426,7 @@ export const sections: Section[] = [
       },
       {
         title: 'Lobo Hackathon — Second Place',
-        body: 'Earned second place for presenting a technical and market-driven solution, demonstrating strong engineering reasoning and communication skills.',
+        body: 'Took second place presenting a technical, market-driven solution to judges under hackathon time pressure. Placing came down to communicating the engineering clearly and persuasively — explaining what we had built, why the approach worked, and who it was for, to an audience encountering the problem for the first time.',
         media: {
           type: 'image',
           src: 'assets/images/hack.jpg',
@@ -438,6 +457,12 @@ export const sections: Section[] = [
     id: 'outreach',
     heading: 'Outreach',
     cards: [
+      {
+        title: 'Youth Outreach in the Robotics Lab',
+        // TODO(alex): add a photo from one of the visits — this card is
+        // text-only until then (see the `media` field on the card below).
+        body: 'Host high-school-age students for visits to the Learning and Control Lab. Each visit pairs a tour of the lab with a short lecture on what we work on and why it matters, live demonstrations of the robots, and hands-on activities where the students interact with the hardware themselves — the aim being to make robotics research feel concrete and reachable rather than abstract.',
+      },
       {
         title: 'GearMasters Volunteering',
         body: 'Volunteered with GearMasters to support hands-on STEM education, mentoring students and assisting with engineering-focused activities.',

@@ -1,7 +1,8 @@
-import { about, researchStatement, updates } from '@/data/content';
+import { about, updates } from '@/data/content';
 import { asset } from '@/lib/asset';
+import TextWithLink from './TextWithLink';
 
-/** Headshot + bio, research-direction statement, and a short dated updates list. */
+/** Headshot + bio, and a short dated updates list. */
 export default function About() {
   return (
     <section id="about" className="mb-24 flex flex-col gap-8 md:flex-row md:items-start">
@@ -13,15 +14,6 @@ export default function About() {
       />
       <div className="flex flex-col gap-6">
         <p className="max-w-prose text-text-secondary">{about.bio}</p>
-
-        <div>
-          <h2 className="mb-2 text-lg font-semibold text-text-primary">
-            {researchStatement.heading}
-          </h2>
-          <p className="max-w-prose text-text-secondary">
-            {researchStatement.body}
-          </p>
-        </div>
 
         {updates.length > 0 && (
           <div>
@@ -35,7 +27,7 @@ export default function About() {
                     {u.date}
                   </span>
                   <span>
-                    {u.text}
+                    <TextWithLink text={u.text} link={u.inlineLink} />
                     {u.url && (
                       <>
                         {' '}

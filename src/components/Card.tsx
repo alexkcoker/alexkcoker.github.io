@@ -1,5 +1,33 @@
 import type { CardItem } from '@/data/content';
 import CardMediaView from './CardMediaView';
+import TextWithLink from './TextWithLink';
+
+/**
+ * Publication byline: author list (the site owner bolded) above the venue and
+ * review status. Rendered between the title and the summary.
+ */
+function PublicationHeader({ item }: { item: CardItem }) {
+  if (!item.authors && !item.venue) return null;
+  return (
+    <>
+      {item.authors && item.authors.length > 0 && (
+        <p className="mt-2 text-sm text-text-secondary">
+          {item.authors.map((a, i) => (
+            <span key={a.name}>
+              {i > 0 && ', '}
+              <span className={a.self ? 'font-semibold text-text-primary' : undefined}>
+                {a.name}
+              </span>
+            </span>
+          ))}
+        </p>
+      )}
+      {item.venue && (
+        <p className="mt-1 text-sm text-text-secondary">{item.venue}</p>
+      )}
+    </>
+  );
+}
 
 /** Status values that get a colored dot; anything else just prints plain. */
 const STATUS_COLOR: Record<string, string> = {
@@ -87,9 +115,11 @@ export default function Card({ item }: { item: CardItem }) {
     : item.reverse
       ? 'md:grid-cols-[1fr_180px]'
       : 'md:grid-cols-[180px_1fr]';
+  // A card with no media gets a single full-width column: the two-column grid
+  // would place its only child in the narrow 180px media track.
   const layout = item.featured
     ? 'flex flex-col gap-6'
-    : `grid grid-cols-1 gap-7 ${mediaColsClass}`;
+    : `grid grid-cols-1 gap-7 ${item.media ? mediaColsClass : ''}`;
 
   return (
     <div
@@ -105,8 +135,11 @@ export default function Card({ item }: { item: CardItem }) {
           {item.title && (
             <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
           )}
+          <PublicationHeader item={item} />
           {item.body && (
-            <p className="-mt-2 max-w-prose text-text-secondary">{item.body}</p>
+            <p className="-mt-2 max-w-prose text-text-secondary">
+              <TextWithLink text={item.body} link={item.bodyLink} />
+            </p>
           )}
           <CardExtras item={item} />
           {item.repoUrl && (
@@ -134,8 +167,11 @@ export default function Card({ item }: { item: CardItem }) {
             {item.title && (
               <h3 className="text-[1.1rem] font-semibold">{item.title}</h3>
             )}
+            <PublicationHeader item={item} />
             {item.body && (
-              <p className="mt-2 max-w-prose text-text-secondary">{item.body}</p>
+              <p className="mt-2 max-w-prose text-text-secondary">
+                <TextWithLink text={item.body} link={item.bodyLink} />
+              </p>
             )}
             {item.bullets && (
               <ul className="mt-2 max-w-prose list-disc pl-[18px] text-text-secondary">
@@ -145,6 +181,16 @@ export default function Card({ item }: { item: CardItem }) {
               </ul>
             )}
             <CardExtras item={item} />
+            {item.repoUrl && (
+              <a
+                href={item.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link mt-3 block w-fit text-sm font-medium"
+              >
+                {item.repoLabel ?? 'View source on GitHub'}
+              </a>
+            )}
           </div>
           {item.media && (
             <CardMediaView
