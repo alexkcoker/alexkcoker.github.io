@@ -67,6 +67,35 @@ function MetaBlock({ meta }: { meta: NonNullable<CardItem['meta']> }) {
   );
 }
 
+/**
+ * Row of outbound links for a card. Prefers the `links` list; falls back to the
+ * single `repoUrl`/`repoLabel` pair the project cards use.
+ */
+function CardLinks({ item, className }: { item: CardItem; className?: string }) {
+  const links =
+    item.links ??
+    (item.repoUrl
+      ? [{ label: item.repoLabel ?? 'View source on GitHub', href: item.repoUrl }]
+      : []);
+  if (links.length === 0) return null;
+
+  return (
+    <div className={`flex flex-wrap gap-x-5 gap-y-1 ${className ?? ''}`}>
+      {links.map((l) => (
+        <a
+          key={l.href}
+          href={l.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link w-fit text-sm font-medium"
+        >
+          {l.label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
 /** Extra structured fields shared by the featured and standard layouts. */
 function CardExtras({ item }: { item: CardItem }) {
   return (
@@ -142,16 +171,7 @@ export default function Card({ item }: { item: CardItem }) {
             </p>
           )}
           <CardExtras item={item} />
-          {item.repoUrl && (
-            <a
-              href={item.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link -mt-2 w-fit text-sm font-medium"
-            >
-              {item.repoLabel ?? 'View source on GitHub'}
-            </a>
-          )}
+          <CardLinks item={item} className="-mt-2" />
           {item.media && <CardMediaView media={item.media} featured />}
         </>
       ) : (
@@ -181,16 +201,7 @@ export default function Card({ item }: { item: CardItem }) {
               </ul>
             )}
             <CardExtras item={item} />
-            {item.repoUrl && (
-              <a
-                href={item.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link mt-3 block w-fit text-sm font-medium"
-              >
-                {item.repoLabel ?? 'View source on GitHub'}
-              </a>
-            )}
+            <CardLinks item={item} className="mt-3" />
           </div>
           {item.media && (
             <CardMediaView

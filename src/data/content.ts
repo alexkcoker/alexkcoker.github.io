@@ -75,6 +75,11 @@ export interface CardItem {
   repoUrl?: string;
   /** Link text for repoUrl. Defaults to "View source on GitHub". */
   repoLabel?: string;
+  /**
+   * Several labelled links rendered as a row — e.g. a paper and its videos.
+   * Takes precedence over `repoUrl`/`repoLabel`, which stay for single-link cards.
+   */
+  links?: { label: string; href: string }[];
   /** Doubles the media column width (360px instead of 180px) on a standard (non-featured) card. */
   wideMedia?: boolean;
   /**
@@ -302,9 +307,18 @@ export const sections: Section[] = [
         venue:
           'Submitted to the 2027 American Control Conference (ACC) · under review',
         body: 'MPPI plans by sampling many candidate trajectories, but nothing in it enforces safety. The usual way to combine several control barrier functions — blending them into one smooth “soft minimum” — quietly shrinks the set of states the planner is allowed to use, and can close off a gap the robot could legitimately fit through; sampling more trajectories never recovers it. This work composes the barriers using their exact minimum instead, enforcing every nearly-active safety constraint together in a small optimization solved during both planning and execution, and confirms in simulation the predicted ln 2 threshold below which the smoothed approach fails to find the gap.',
-        // Videos only — the paper itself is not public while under review.
-        repoUrl: 'https://github.com/lc-lab25/Exact-Safe-MPPI',
-        repoLabel: 'Videos',
+        // The preprint is public on arXiv (posted 2026-10-05); the ACC
+        // submission itself remains under review.
+        links: [
+          {
+            label: 'arXiv:2610.07369',
+            href: 'https://arxiv.org/abs/2610.07369',
+          },
+          {
+            label: 'Videos',
+            href: 'https://github.com/lc-lab25/Exact-Safe-MPPI',
+          },
+        ],
       },
     ],
   },
