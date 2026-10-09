@@ -473,9 +473,13 @@ export const sections: Section[] = [
     cards: [
       {
         title: 'Youth Outreach in the Robotics Lab',
-        // TODO(alex): add a photo from one of the visits — this card is
-        // text-only until then (see the `media` field on the card below).
-        body: 'Host high-school-age students for visits to the Learning and Control Lab. Each visit pairs a tour of the lab with a short lecture on what we work on and why it matters, live demonstrations of the robots, and hands-on activities where the students interact with the hardware themselves — the aim being to make robotics research feel concrete and reachable rather than abstract.',
+        // Not yet run — the "Planned" stamp and the future tense below keep it
+        // from reading as something already happening.
+        // TODO(alex): once the first visit happens, switch this to present
+        // tense, give it a real date, and add a photo (see the `media` field
+        // on the card below).
+        dateRange: 'Planned',
+        body: 'Planning a program to bring high-school-age students into the Learning and Control Lab. Each visit will pair a tour of the lab with a short lecture on what we work on and why it matters, live demonstrations of the robots, and hands-on activities where the students interact with the hardware themselves — the aim being to make robotics research feel concrete and reachable rather than abstract.',
       },
       {
         title: 'GearMasters Volunteering',
