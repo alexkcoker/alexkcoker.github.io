@@ -70,11 +70,6 @@ it further, the options, biggest first:
   heaviest videos — both could likely drop 50%+ with a slightly lower
   bitrate/resolution with no visible quality loss at the size they're
   displayed on the page.
-- `sandia_connector.jpg` (3.3 MB), `sandia_bench.jpg` (2.9 MB), and
-  `sandia_kelvin.jpg` (2.0 MB) are full phone/DSLR-resolution photos shown
-  in a slideshow that's never displayed larger than the card width —
-  downscaling and re-compressing these would cut them to a few hundred KB
-  each with no visible difference.
 - Ask Claude to do this re-encode pass whenever you want it — holding off
   by default since it touches your original source files.
 

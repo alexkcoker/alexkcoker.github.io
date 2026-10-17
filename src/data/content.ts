@@ -389,43 +389,6 @@ export const sections: Section[] = [
     ],
   },
   {
-    id: 'experience',
-    heading: 'Experience',
-    cards: [
-      {
-        title: 'Sandia National Laboratories',
-        dateRange: 'June 2025 – Present',
-        featured: true,
-        body: 'Investigating failure mechanisms in photovoltaic (PV) connectors — characterizing why field connections degrade and fail. Work spanned hands-on sample preparation, four-wire (Kelvin) resistance measurement, and controlled electrical testing across thousands of connector samples, along with data collection and analysis in a national-laboratory environment. Mentored another intern on the team. Recipient of the Sandia Thunderbird Award.',
-        talks: [
-          'DOE quarterly program reviews',
-          'PVQAT solar reliability conference, presented to many PV connector experts',
-        ],
-        media: {
-          type: 'slideshow',
-          images: [
-            {
-              src: 'assets/images/sandia_connector.jpg',
-              alt: 'A failed PV connector with a test tracking barcode.',
-            },
-            {
-              src: 'assets/images/sandia_kelvin.jpg',
-              alt: 'PV connector held in Kelvin clips for four-wire resistance measurement.',
-            },
-            {
-              src: 'assets/images/sandia_bench.jpg',
-              alt: 'Test bench with PV connectors mounted for evaluation.',
-            },
-            {
-              src: 'assets/images/sandia_measurement.png',
-              alt: 'Power supply and precision multimeter capturing connector resistance under load.',
-            },
-          ],
-        },
-      },
-    ],
-  },
-  {
     id: 'awards',
     heading: 'Awards & Accomplishments',
     cards: [

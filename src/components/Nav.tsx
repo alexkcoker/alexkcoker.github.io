@@ -9,7 +9,6 @@ const LINKS = [
   { id: 'publications', label: 'Publications' },
   { id: 'research', label: 'Research' },
   { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
 ];
 
 /** Sticky top nav with anchor links, a mobile toggle, and scroll-spy highlighting. */
