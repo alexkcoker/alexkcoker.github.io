@@ -6,8 +6,8 @@ import { asset } from '@/lib/asset';
 
 const LINKS = [
   { id: 'about', label: 'About' },
-  { id: 'research', label: 'Research' },
   { id: 'publications', label: 'Publications' },
+  { id: 'research', label: 'Research' },
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
 ];

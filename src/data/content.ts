@@ -178,11 +178,55 @@ export const updates: {
 
 export const sections: Section[] = [
   {
+    id: 'publications',
+    heading: 'Publications',
+    cards: [
+      {
+        title:
+          'Exact-Safe MPPI: Safety-Aware Sampling with Nonsmooth Control Barrier Functions',
+        authors: [
+          { name: 'Alexander Coker', self: true },
+          { name: 'Leilei Cui' },
+        ],
+        venue:
+          'Submitted to the 2027 American Control Conference (ACC) · under review',
+        body: 'MPPI plans by sampling many candidate trajectories, but nothing in it enforces safety. The usual way to combine several control barrier functions — blending them into one smooth “soft minimum” — quietly shrinks the set of states the planner is allowed to use, and can close off a gap the robot could legitimately fit through; sampling more trajectories never recovers it. This work composes the barriers using their exact minimum instead, enforcing every nearly-active safety constraint together in a small optimization solved during both planning and execution, and confirms in simulation the predicted ln 2 threshold below which the smoothed approach fails to find the gap.',
+        // The preprint is public on arXiv (posted 2026-10-05); the ACC
+        // submission itself remains under review.
+        links: [
+          {
+            label: 'arXiv:2610.07369',
+            href: 'https://arxiv.org/abs/2610.07369',
+          },
+          {
+            label: 'Videos',
+            href: 'https://github.com/lc-lab25/Exact-Safe-MPPI',
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: 'research',
     heading: 'Research',
     // No intro paragraph here: it restated the lab/advisor line from the bio
     // above and then summarised the three cards that follow it.
     cards: [
+      {
+        title: 'Porting Agile But Safe to the Unitree Go2',
+        body: 'Working to recreate Agile But Safe (ABS) — a framework that pairs a high-speed agile locomotion policy with a learned reach-avoid safety value network and a recovery policy, letting a legged robot navigate cluttered environments at speed without colliding with obstacles. The original codebase targets the Unitree Go1 and has no existing Go2 port, so this project is building one from scratch. Current progress: training the base position-tracking locomotion policy on the Go2’s model in simulation over rough, obstacle-scattered terrain — the foundation the agile and safety policies still need to be trained on top of.',
+        featured: true,
+        repoUrl: 'https://agile-but-safe.github.io/',
+        repoLabel: 'View original ABS project',
+        media: {
+          type: 'single-video',
+          video: {
+            src: 'assets/videos/go2_pos_rough.mp4',
+            poster: 'assets/images/go2_pos_rough_poster.jpg',
+          },
+          caption: 'Early, rough-terrain training of the Go2 locomotion policy — still a work in progress.',
+        },
+      },
       {
         title: 'Control Barrier Function Safety Filter on the Unitree Go2',
         dateRange: 'Oct. 2025 – Present',
@@ -275,50 +319,6 @@ export const sections: Section[] = [
             },
           ],
         },
-      },
-      {
-        title: 'Porting Agile But Safe to the Unitree Go2',
-        body: 'Working to recreate Agile But Safe (ABS) — a framework that pairs a high-speed agile locomotion policy with a learned reach-avoid safety value network and a recovery policy, letting a legged robot navigate cluttered environments at speed without colliding with obstacles. The original codebase targets the Unitree Go1 and has no existing Go2 port, so this project is building one from scratch. Current progress: training the base position-tracking locomotion policy on the Go2’s model in simulation over rough, obstacle-scattered terrain — the foundation the agile and safety policies still need to be trained on top of.',
-        featured: true,
-        repoUrl: 'https://agile-but-safe.github.io/',
-        repoLabel: 'View original ABS project',
-        media: {
-          type: 'single-video',
-          video: {
-            src: 'assets/videos/go2_pos_rough.mp4',
-            poster: 'assets/images/go2_pos_rough_poster.jpg',
-          },
-          caption: 'Early, rough-terrain training of the Go2 locomotion policy — still a work in progress.',
-        },
-      },
-    ],
-  },
-  {
-    id: 'publications',
-    heading: 'Publications',
-    cards: [
-      {
-        title:
-          'Exact-Safe MPPI: Safety-Aware Sampling with Nonsmooth Control Barrier Functions',
-        authors: [
-          { name: 'Alexander Coker', self: true },
-          { name: 'Leilei Cui' },
-        ],
-        venue:
-          'Submitted to the 2027 American Control Conference (ACC) · under review',
-        body: 'MPPI plans by sampling many candidate trajectories, but nothing in it enforces safety. The usual way to combine several control barrier functions — blending them into one smooth “soft minimum” — quietly shrinks the set of states the planner is allowed to use, and can close off a gap the robot could legitimately fit through; sampling more trajectories never recovers it. This work composes the barriers using their exact minimum instead, enforcing every nearly-active safety constraint together in a small optimization solved during both planning and execution, and confirms in simulation the predicted ln 2 threshold below which the smoothed approach fails to find the gap.',
-        // The preprint is public on arXiv (posted 2026-10-05); the ACC
-        // submission itself remains under review.
-        links: [
-          {
-            label: 'arXiv:2610.07369',
-            href: 'https://arxiv.org/abs/2610.07369',
-          },
-          {
-            label: 'Videos',
-            href: 'https://github.com/lc-lab25/Exact-Safe-MPPI',
-          },
-        ],
       },
     ],
   },
