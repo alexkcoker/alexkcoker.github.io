@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { asset } from '@/lib/asset';
+import { usePreloadNearViewport } from '@/lib/usePreloadNearViewport';
 
 type Clip = { label: string; src: string; poster?: string };
 
@@ -22,6 +23,7 @@ export default function SyncedVideos({
 }) {
   const leftRef = useRef<HTMLVideoElement>(null);
   const rightRef = useRef<HTMLVideoElement>(null);
+  usePreloadNearViewport([leftRef, rightRef]);
   const [playing, setPlaying] = useState(false);
 
   const forEach = (fn: (v: HTMLVideoElement) => void) =>
