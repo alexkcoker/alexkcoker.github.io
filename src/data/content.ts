@@ -149,6 +149,11 @@ export const updates: {
   inlineLink?: { text: string; href: string };
 }[] = [
   {
+    date: 'Nov. 2026',
+    text: 'Won 2nd Place Best Paper at the 2026 Southwest Robotics Symposium (ASU) for Exact-Safe MPPI, presented as a talk and a poster.',
+    inlineLink: { text: 'Exact-Safe MPPI', href: '#publications' },
+  },
+  {
     date: 'Oct. 2026',
     text: 'Submitted my first paper, Exact-Safe MPPI, to ACC 2027 (with Prof. Leilei Cui).',
     inlineLink: { text: 'Exact-Safe MPPI', href: '#publications' },
@@ -189,7 +194,7 @@ export const sections: Section[] = [
           { name: 'Leilei Cui' },
         ],
         venue:
-          'Submitted to the 2027 American Control Conference (ACC) · under review',
+          'Submitted to the 2027 American Control Conference (ACC) · under review. Presented at the 2026 Southwest Robotics Symposium (SWRS) — 2nd Place Best Paper.',
         body: 'MPPI plans by sampling many candidate trajectories, but nothing in it enforces safety. The usual way to combine several control barrier functions — blending them into one smooth “soft minimum” — quietly shrinks the set of states the planner is allowed to use, and can close off a gap the robot could legitimately fit through; sampling more trajectories never recovers it. This work composes the barriers using their exact minimum instead, enforcing every nearly-active safety constraint together in a small optimization solved during both planning and execution, and confirms in simulation the predicted ln 2 threshold below which the smoothed approach fails to find the gap.',
         // The preprint is public on arXiv (posted 2026-10-05); the ACC
         // submission itself remains under review.
@@ -202,7 +207,18 @@ export const sections: Section[] = [
             label: 'Videos',
             href: 'https://github.com/lc-lab25/Exact-Safe-MPPI',
           },
+          {
+            label: 'Poster (PDF)',
+            href: 'assets/papers/exact-safe-mppi-poster.pdf',
+          },
         ],
+        // The 48×36 in poster presented at SWRS 2026; click opens it full-size.
+        wideMedia: true,
+        media: {
+          type: 'image',
+          src: 'assets/images/exact_safe_mppi_poster.jpg',
+          alt: 'Exact-Safe MPPI conference poster: the problem with soft-min barrier composition, the exact-minimum safety filter pipeline, and simulation and quadruped hardware results through a narrow gap.',
+        },
       },
     ],
   },
@@ -392,6 +408,27 @@ export const sections: Section[] = [
     id: 'awards',
     heading: 'Awards & Accomplishments',
     cards: [
+      {
+        title: 'Southwest Robotics Symposium 2026 — 2nd Place Best Paper',
+        dateRange: 'Nov. 2026',
+        body: 'Exact-Safe MPPI (with Prof. Leilei Cui) took 2nd Place Best Paper at the 2026 Southwest Robotics Symposium, “Robotics in Extreme Environments,” hosted by Arizona State University. I presented the work in a talk and at a poster session.',
+        bodyLink: { text: 'Exact-Safe MPPI', href: '#publications' },
+        // TODO(alex): add the photo of receiving the award as the first slide.
+        wideMedia: true,
+        media: {
+          type: 'slideshow',
+          images: [
+            {
+              src: 'assets/images/swrs_presenting.jpg',
+              alt: 'Alex Coker presenting Exact-Safe MPPI on stage at the 2026 Southwest Robotics Symposium, in front of a slide on why classical control barrier functions force a soft-min.',
+            },
+            {
+              src: 'assets/images/swrs_best_paper_certificate.jpg',
+              alt: 'Southwest Robotics Symposium 2026 certificate awarding 2nd Place Best Paper to Alexander Coker and Leilei Cui for Exact-Safe MPPI.',
+            },
+          ],
+        },
+      },
       {
         title: 'UNM Pitch Contest — Arid Sustainability Award',
         body: 'Pitched a technology commercialization concept for sustainability in arid environments to a judging panel, and won the Arid Sustainability Award. The result turned as much on the delivery as on the idea: framing a technical concept for an audience that did not share my background, making the case for its feasibility and real-world impact in the time allowed, and defending it under questioning.',
